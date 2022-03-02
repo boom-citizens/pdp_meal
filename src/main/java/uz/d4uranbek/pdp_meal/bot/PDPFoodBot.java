@@ -1,5 +1,6 @@
 package uz.d4uranbek.pdp_meal.bot;
 
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -8,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
  * Time : 02.03.2022 15:25
  * Project : pdp_meal
  */
+@Component
 public class PDPFoodBot extends TelegramLongPollingBot {
 
     @Override
