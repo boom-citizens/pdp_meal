@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequest;
  * @author D4uranbek вт. 10:19. 01.03.2022
  */
 
-@ControllerAdvice("uz.d4uranbek.rest_crud")
+@ControllerAdvice("uz.d4uranbek.pdp_meal")
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({RuntimeException.class})

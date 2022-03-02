@@ -34,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomAuthentication authenticationManager;
     private final UserDetailsService userDetailsService;
     private final String[] WHITE_LIST = {
-            "/auth/login", "/api/**"
+            "/auth/login", "/api/**", "/swagger-resources/**", "/webjars/**",
+            "/v2/api-docs/**", "/swagger.json", "/swagger-ui.html"
     };
 
 
@@ -57,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, WHITE_LIST)
                 .permitAll()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
