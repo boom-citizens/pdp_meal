@@ -34,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomAuthentication authenticationManager;
     private final UserDetailsService userDetailsService;
     private final String[] WHITE_LIST = {
-            "/auth/login", "/api/**", "/swagger-resources/**", "/webjars/**",
+            "/auth/login", "/api/**", "/swagger-resources/configuration/ui/**",
+            "/swagger-resources/**", "/webjars/**", "/swagger-resources/configuration/security",
             "/v2/api-docs/**", "/swagger.json", "/swagger-ui.html"
     };
 
