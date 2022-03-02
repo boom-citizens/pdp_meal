@@ -42,7 +42,7 @@ public class MealController extends AbstractController<MealServiceImpl> {
     }
 
     @PostMapping("/create")
-    public Long create(@RequestBody MealCreateDto dto) throws IOException {
+    public Long create(@RequestBody MealCreateDto dto) {
         return service.create(dto);
     }
 
@@ -52,7 +52,7 @@ public class MealController extends AbstractController<MealServiceImpl> {
     }
 
     @PutMapping("/update")
-    public Void update(@RequestBody MealUpdateDto dto) throws IOException {
+    public Void update(@RequestBody MealUpdateDto dto) {
         return service.update(dto);
     }
 

@@ -24,10 +24,10 @@ public interface GenericCrudService<
         C extends GenericCriteria,
         K extends Serializable> extends GenericService<D, C, K> {
 
-    K create(CD createDto) throws IOException;
+    K create(CD createDto);
 
     Void delete(K id);
 
-    Void update(UD updateDto) throws IOException;
+    Void update(UD updateDto);
 
 }

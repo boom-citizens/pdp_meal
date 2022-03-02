@@ -6,12 +6,15 @@ import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
+import uz.d4uranbek.pdp_meal.entity.order.Order;
 import uz.d4uranbek.pdp_meal.mapper.order.OrderMapper;
+import uz.d4uranbek.pdp_meal.repository.meal.MealRepository;
 import uz.d4uranbek.pdp_meal.repository.order.OrderRepository;
 import uz.d4uranbek.pdp_meal.service.AbstractService;
-import uz.d4uranbek.pdp_meal.validator.OrderValidator;
+import uz.d4uranbek.pdp_meal.validator.order.OrderValidator;
 
-import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -24,13 +27,23 @@ public class OrderServiceImpl extends AbstractService<
         OrderValidator>
         implements OrderService {
 
-    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator) {
+    private final MealRepository mealRepository;
+//    private final UserRepository userRepository;
+
+    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository) {
         super(repository, mapper, validator);
+        this.mealRepository = mealRepository;
+//        this.userRepository = userRepository;
     }
 
     @Override
-    public Long create(OrderCreateDto createDto) throws IOException {
-        return null;
+    public Long create(OrderCreateDto createDto) {
+        validator.validOnCreate(createDto);
+        Order order = mapper.fromCreateDto(createDto);
+//        order.setUser(userRepository.getById(createDto.getUserId()));
+        order.setMeal(mealRepository.getById(createDto.getMealId()));
+        order.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        return repository.save(order).getId();
     }
 
     @Override
@@ -39,7 +52,7 @@ public class OrderServiceImpl extends AbstractService<
     }
 
     @Override
-    public Void update(OrderUpdateDto updateDto) throws IOException {
+    public Void update(OrderUpdateDto updateDto) {
         return null;
     }
 
