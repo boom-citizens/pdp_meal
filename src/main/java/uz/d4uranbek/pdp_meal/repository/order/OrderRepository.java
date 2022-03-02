@@ -9,7 +9,6 @@ import uz.d4uranbek.pdp_meal.repository.AbstractRepository;
 /**
  * @author D4uranbek ср. 18:29. 02.03.2022
  */
-
 @Transactional
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>, AbstractRepository {
