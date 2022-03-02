@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
 
-import java.time.LocalDate;
-
 /**
  * @author D4uranbek ср. 12:57. 02.03.2022
  */
@@ -15,10 +13,9 @@ import java.time.LocalDate;
 public class MealUpdateDto extends GenericDto {
 
     private String name;
+    private String date;
 
-    private LocalDate date;
-
-    public MealUpdateDto(Long id, String name, LocalDate date) {
+    public MealUpdateDto(Long id, String name, String date) {
         super(id);
         this.name = name;
         this.date = date;
