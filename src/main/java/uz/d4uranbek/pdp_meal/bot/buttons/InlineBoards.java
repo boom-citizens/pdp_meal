@@ -1,6 +1,7 @@
 package uz.d4uranbek.pdp_meal.bot.buttons;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import uz.d4uranbek.pdp_meal.utils.Emojis;
 
@@ -27,6 +28,20 @@ public class InlineBoards {
         en.setCallbackData("en");
 
         board.setKeyboard(Arrays.asList(List.of(uz),List.of(ru),List.of(en)));
+        return board;
+    }
+
+    public static InlineKeyboardMarkup departmentButtons() {
+        InlineKeyboardButton mentors=new InlineKeyboardButton("Mentors D");
+        mentors.setCallbackData("mentors");
+
+        InlineKeyboardButton economic=new InlineKeyboardButton("Economic D");
+        economic.setCallbackData("economic");
+
+        InlineKeyboardButton sales = new InlineKeyboardButton("Sales D");
+        sales.setCallbackData("sales");
+
+        board.setKeyboard(Arrays.asList(List.of(mentors),List.of(economic),List.of(sales)));
         return board;
     }
 }
