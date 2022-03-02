@@ -1,5 +1,6 @@
 package uz.d4uranbek.pdp_meal.service.meal;
 
+import org.springframework.stereotype.Service;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
 import uz.d4uranbek.pdp_meal.dto.meal.MealCreateDto;
 import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * @author D4uranbek ср. 18:33. 02.03.2022
  */
+@Service
 public class MealServiceImpl extends AbstractService<
         MealRepository,
         MealMapper,

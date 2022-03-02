@@ -27,6 +27,6 @@ public class Position {
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 }

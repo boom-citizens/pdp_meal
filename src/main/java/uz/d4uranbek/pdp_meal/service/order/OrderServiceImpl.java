@@ -1,6 +1,7 @@
 package uz.d4uranbek.pdp_meal.service.order;
 
 
+import org.springframework.stereotype.Service;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * @author D4uranbek ср. 18:53. 02.03.2022
  */
+@Service
 public class OrderServiceImpl extends AbstractService<
         OrderRepository,
         OrderMapper,

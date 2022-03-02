@@ -1,5 +1,6 @@
 package uz.d4uranbek.pdp_meal.validator.meal;
 
+import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.meal.MealCreateDto;
 import uz.d4uranbek.pdp_meal.dto.meal.MealUpdateDto;
 import uz.d4uranbek.pdp_meal.exception.ValidationException;
@@ -8,6 +9,7 @@ import uz.d4uranbek.pdp_meal.validator.AbstractValidator;
 /**
  * @author D4uranbek ср. 18:13. 02.03.2022
  */
+@Component
 public class MealValidator extends AbstractValidator<MealCreateDto, MealUpdateDto, Long> {
 
     @Override

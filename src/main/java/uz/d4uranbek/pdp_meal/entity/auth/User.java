@@ -1,9 +1,9 @@
 package uz.d4uranbek.pdp_meal.entity.auth;
 
-import uz.d4uranbek.pdp_meal.entity.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.d4uranbek.pdp_meal.entity.Auditable;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Position;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
@@ -24,10 +24,10 @@ public class User extends Auditable {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "phone", unique = true,nullable = false)
+    @Column(name = "phone", unique = true, nullable = false)
     private String phone;
 
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "full_name")

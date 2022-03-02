@@ -30,12 +30,12 @@ public class Role {
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "auth_role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private List<Permission>  permissions =new ArrayList<>();
+    private List<Permission> permissions = new ArrayList<>();
 
 
 }
