@@ -29,7 +29,7 @@ public class OrderServiceImpl extends AbstractService<
     }
 
     @Override
-    public Long create(OrderCreateDto createDto) throws IOException {
+    public Long create(OrderCreateDto createDto)  {
         return null;
     }
 
@@ -39,7 +39,7 @@ public class OrderServiceImpl extends AbstractService<
     }
 
     @Override
-    public Void update(OrderUpdateDto updateDto) throws IOException {
+    public Void update(OrderUpdateDto updateDto)  {
         return null;
     }
 

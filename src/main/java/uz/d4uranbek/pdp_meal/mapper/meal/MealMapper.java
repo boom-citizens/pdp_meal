@@ -1,6 +1,7 @@
 package uz.d4uranbek.pdp_meal.mapper.meal;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.meal.MealCreateDto;
 import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
@@ -32,4 +33,7 @@ public interface MealMapper extends BaseMapper<
 
     @Override
     Meal fromUpdateDto(MealUpdateDto mealUpdateDto);
+
+    Meal fromUpdateDto(MealUpdateDto dto, @MappingTarget Meal meal);
+
 }

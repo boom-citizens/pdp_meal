@@ -12,7 +12,6 @@ import uz.d4uranbek.pdp_meal.repository.meal.MealRepository;
 import uz.d4uranbek.pdp_meal.service.AbstractService;
 import uz.d4uranbek.pdp_meal.validator.meal.MealValidator;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -33,7 +32,7 @@ public class MealServiceImpl extends AbstractService<
     }
 
     @Override
-    public Long create(MealCreateDto createDto) throws IOException {
+    public Long create(MealCreateDto createDto) {
         validator.validOnCreate(createDto);
         Meal meal = mapper.fromCreateDto(createDto);
         meal.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
@@ -42,11 +41,18 @@ public class MealServiceImpl extends AbstractService<
 
     @Override
     public Void delete(Long id) {
+        repository.deleteById(id);
         return null;
     }
 
     @Override
-    public Void update(MealUpdateDto updateDto) throws IOException {
+    public Void update(MealUpdateDto updateDto) {
+        Meal meal = repository
+                .findById(updateDto.getId())
+                .orElseThrow(() -> new RuntimeException("Not Found"));
+        mapper.fromUpdateDto(updateDto, meal);
+        repository.save(meal);
+
         return null;
     }
 
