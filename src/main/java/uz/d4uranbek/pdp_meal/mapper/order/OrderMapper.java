@@ -1,10 +1,13 @@
 package uz.d4uranbek.pdp_meal.mapper.order;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
+import uz.d4uranbek.pdp_meal.dto.meal.MealUpdateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
+import uz.d4uranbek.pdp_meal.entity.meal.Meal;
 import uz.d4uranbek.pdp_meal.entity.order.Order;
 import uz.d4uranbek.pdp_meal.mapper.BaseMapper;
 
@@ -32,4 +35,6 @@ public interface OrderMapper extends BaseMapper<
 
     @Override
     Order fromUpdateDto(OrderUpdateDto orderUpdateDto);
+
+    Meal fromUpdateDto(OrderUpdateDto dto, @MappingTarget Order order);
 }

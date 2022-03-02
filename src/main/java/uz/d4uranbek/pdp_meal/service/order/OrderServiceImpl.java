@@ -8,6 +8,7 @@ import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
 import uz.d4uranbek.pdp_meal.entity.order.Order;
 import uz.d4uranbek.pdp_meal.mapper.order.OrderMapper;
+import uz.d4uranbek.pdp_meal.repository.auth.AuthUserRepository;
 import uz.d4uranbek.pdp_meal.repository.meal.MealRepository;
 import uz.d4uranbek.pdp_meal.repository.order.OrderRepository;
 import uz.d4uranbek.pdp_meal.service.AbstractService;
@@ -28,19 +29,19 @@ public class OrderServiceImpl extends AbstractService<
         implements OrderService {
 
     private final MealRepository mealRepository;
-//    private final UserRepository userRepository;
+    private final AuthUserRepository userRepository;
 
-    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository) {
+    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthUserRepository userRepository) {
         super(repository, mapper, validator);
         this.mealRepository = mealRepository;
-//        this.userRepository = userRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Long create(OrderCreateDto createDto) {
         validator.validOnCreate(createDto);
         Order order = mapper.fromCreateDto(createDto);
-//        order.setUser(userRepository.getById(createDto.getUserId()));
+        order.setUser(userRepository.getById(createDto.getUserId()));
         order.setMeal(mealRepository.getById(createDto.getMealId()));
         order.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         return repository.save(order).getId();
@@ -48,17 +49,25 @@ public class OrderServiceImpl extends AbstractService<
 
     @Override
     public Void delete(Long id) {
+        repository.deleteById(id);
         return null;
     }
 
     @Override
     public Void update(OrderUpdateDto updateDto) {
+        validator.validOnUpdate(updateDto);
+        Order order = repository
+                .findById(updateDto.getId())
+                .orElseThrow(() -> new RuntimeException("Not Found"));
+        mapper.fromUpdateDto(updateDto, order);
+        repository.save(order);
+
         return null;
     }
 
     @Override
     public List<OrderDto> getAll(GenericCriteria criteria) {
-        return null;
+        return mapper.toDto(repository.findAll());
     }
 
     @Override
@@ -68,7 +77,9 @@ public class OrderServiceImpl extends AbstractService<
 
     @Override
     public OrderDto get(Long id) {
-        return null;
+        return mapper.toDto(repository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Not Found")));
     }
 
     @Override

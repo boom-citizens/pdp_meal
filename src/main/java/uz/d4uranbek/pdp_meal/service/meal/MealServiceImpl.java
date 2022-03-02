@@ -51,7 +51,6 @@ public class MealServiceImpl extends AbstractService<
                 .findById(updateDto.getId())
                 .orElseThrow(() -> new RuntimeException("Not Found"));
         mapper.fromUpdateDto(updateDto, meal);
-//        meal.setDate(LocalDate.parse(updateDto.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         repository.save(meal);
 
         return null;
@@ -77,5 +76,10 @@ public class MealServiceImpl extends AbstractService<
     @Override
     public Long totalCount(GenericCriteria criteria) {
         return null;
+    }
+
+    public List<MealDto> getAllByDate(String date) {
+        LocalDate localDate = validator.validDate(date);
+        return mapper.toDto(repository.findAllByDate(localDate));
     }
 }

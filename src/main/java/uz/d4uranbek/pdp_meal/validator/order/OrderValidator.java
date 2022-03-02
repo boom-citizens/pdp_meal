@@ -21,9 +21,7 @@ public class OrderValidator extends AbstractValidator<OrderCreateDto, OrderUpdat
 
     @Override
     public void validOnCreate(OrderCreateDto orderCreateDto) throws ValidationException {
-        if (!orderCreateDto.getDate().matches(DATE_REGEX)) {
-            throw new ValidationException("Invalid date format");
-        }
+        validDate(orderCreateDto.getDate());
 
         if (Objects.isNull(orderCreateDto.getUserId())) {
             throw new ValidationException("User should not be blank");
@@ -36,9 +34,7 @@ public class OrderValidator extends AbstractValidator<OrderCreateDto, OrderUpdat
 
     @Override
     public void validOnUpdate(OrderUpdateDto orderUpdateDto) throws ValidationException {
-        if (!orderUpdateDto.getDate().matches(DATE_REGEX)) {
-            throw new ValidationException("Invalid date format");
-        }
+        validDate(orderUpdateDto.getDate());
 
         if (Objects.isNull(orderUpdateDto.getUserId())) {
             throw new ValidationException("User should not be blank");

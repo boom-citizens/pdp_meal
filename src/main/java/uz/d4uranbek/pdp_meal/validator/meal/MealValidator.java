@@ -21,9 +21,7 @@ public class MealValidator extends AbstractValidator<MealCreateDto, MealUpdateDt
 
     @Override
     public void validOnCreate(MealCreateDto mealCreateDto) throws ValidationException {
-        if (!mealCreateDto.getDate().matches(DATE_REGEX)) {
-            throw new ValidationException("Invalid date format");
-        }
+        validDate(mealCreateDto.getDate());
 
         if (Objects.isNull(mealCreateDto.getName()) || "".equals(mealCreateDto.getName())) {
             throw new ValidationException("Name should not be blank");
@@ -32,9 +30,7 @@ public class MealValidator extends AbstractValidator<MealCreateDto, MealUpdateDt
 
     @Override
     public void validOnUpdate(MealUpdateDto mealUpdateDto) throws ValidationException {
-        if (!mealUpdateDto.getDate().matches(DATE_REGEX)) {
-            throw new ValidationException("Invalid date format");
-        }
+        validDate(mealUpdateDto.getDate());
 
         if (Objects.isNull(mealUpdateDto.getName()) || "".equals(mealUpdateDto.getName())) {
             throw new ValidationException("Name should not be blank");

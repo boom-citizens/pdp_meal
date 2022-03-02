@@ -9,7 +9,6 @@ import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
 import uz.d4uranbek.pdp_meal.dto.meal.MealUpdateDto;
 import uz.d4uranbek.pdp_meal.service.meal.MealServiceImpl;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,9 +35,14 @@ public class MealController extends AbstractController<MealServiceImpl> {
         return service.getAll(new GenericCriteria());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public MealDto meal(@PathVariable Long id) {
         return service.get(id);
+    }
+
+    @GetMapping("/date/{date}")
+    public List<MealDto> mealByDate(@PathVariable String date) {
+        return service.getAllByDate(date);
     }
 
     @PostMapping("/create")
