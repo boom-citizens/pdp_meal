@@ -1,15 +1,18 @@
 package uz.d4uranbek.pdp_meal.entity.auth;
 
+import lombok.AllArgsConstructor;
+import uz.d4uranbek.pdp_meal.entity.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.d4uranbek.pdp_meal.entity.Auditable;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
-import uz.d4uranbek.pdp_meal.entity.position.Position;
+import uz.d4uranbek.pdp_meal.entity.position.Positions;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
 import uz.d4uranbek.pdp_meal.enums.Status;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author D4uranbek ср. 7:34. 02.03.2022
@@ -18,16 +21,17 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-
+@Table(name = "users")
 public class User extends Auditable {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "phone", unique = true, nullable = false)
+    @Column(name = "phone", unique = true,nullable = false)
     private String phone;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password",nullable = false)
     private String password;
 
     @Column(name = "full_name")
@@ -45,11 +49,31 @@ public class User extends Auditable {
     private Long chatId;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "auth_position", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "position_id"))
-    private Position position;
+   @OneToMany(fetch = FetchType.LAZY)
+   @JoinTable(name = "auth_position",
+           joinColumns = @JoinColumn(name = "user_id"),
+           inverseJoinColumns = @JoinColumn(name = "position_id"))
+
+    private List<Positions> position;
 
     @Column(name = "status", nullable = false)
     private Status status;
+
+    public User(
+            Long createBy, LocalDateTime createdAt, String userName,
+                String phone, String password, String fullName, Language language,
+                Role role, Long chatId, List<Positions> position, Status status) {
+        super( createBy, createdAt);
+        this.userName = userName;
+        this.phone = phone;
+        this.password = password;
+        this.fullName = fullName;
+        this.language = language;
+        this.role = role;
+        this.chatId = chatId;
+        this.position = position;
+        this.status = status;
+    }
+
 
 }

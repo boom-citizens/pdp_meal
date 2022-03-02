@@ -18,7 +18,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 
-public class Position {
+public class Positions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,11 @@ public class Position {
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name",nullable = false)
     private String name;
+
+    public Positions( String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 }

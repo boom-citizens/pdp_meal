@@ -1,8 +1,6 @@
 package uz.d4uranbek.pdp_meal.entity.permission;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -28,7 +26,12 @@ public class Permission {
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name",nullable = false)
     private String name;
 
+
+    public Permission(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 }

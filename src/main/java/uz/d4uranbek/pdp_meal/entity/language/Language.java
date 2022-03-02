@@ -7,7 +7,6 @@ package uz.d4uranbek.pdp_meal.entity.language;
  * @date : 3/2/2022
  * @project : mealDeliver
  */
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +26,11 @@ public class Language {
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name",nullable = false)
     private String name;
+
+    public Language(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 }

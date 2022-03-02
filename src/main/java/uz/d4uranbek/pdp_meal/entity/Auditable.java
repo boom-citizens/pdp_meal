@@ -43,4 +43,9 @@ public abstract class Auditable implements BaseEntity {
     @Column(name = "updated_by")
     private Long updatedBy;
 
+
+    public Auditable(Long createBy, LocalDateTime createdAt) {
+        this.createBy = createBy;
+        this.createdAt = createdAt;
+    }
 }

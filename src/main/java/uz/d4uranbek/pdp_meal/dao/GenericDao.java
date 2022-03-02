@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.criteria;
+package uz.d4uranbek.pdp_meal.dao;
 
 /**
  * Created by Elyor Ergashov
@@ -8,6 +8,6 @@ package uz.d4uranbek.pdp_meal.criteria;
  * @project : mealDeliver
  */
 
-public class GenericCriteria {
+public class GenericDao {
 
 }

@@ -1,21 +1,12 @@
+server:
+  port: 8083
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 7722
     url: jdbc:postgresql://localhost:5432/citizens?currentSchema=meal
-    username: citizen
-    password: 1111
   jpa:
-    open-in-view: false
+    generate-ddl: true
     hibernate:
       ddl-auto: update
-    show-sql: true
-  thymeleaf:
-    cache: false
-  servlet:
-    multipart:
-      max-file-size: 100MB
-
-server:
-  port: 9090
-bot:
-  name: PDPFoodBot
