@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.mappers.auth;
+package uz.d4uranbek.pdp_meal.mapper.auth;
 
 /**
  * Created by Elyor Ergashov
