@@ -27,6 +27,9 @@ public abstract class Auditable implements BaseEntity {
     //@Column(name = "created_at", updatable = false)
     //@ColumnDefault(value = "CURRENT_TIMESTAMP")
     //@Generated(GenerationTime.INSERT)
+    @Column(name = "created_by")
+    private Long createBy;
+
     @CreatedDate
     @CreationTimestamp
     private LocalDateTime createdAt;
