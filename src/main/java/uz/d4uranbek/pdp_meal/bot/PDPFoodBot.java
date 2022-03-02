@@ -2,7 +2,10 @@ package uz.d4uranbek.pdp_meal.bot;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 /**
  * Author : Qozoqboyev Ixtiyor
@@ -28,4 +31,22 @@ public class PDPFoodBot extends TelegramLongPollingBot {
     public String getBotUsername() {
         return "@PDP_food_bot";
     }
+
+    public void executePhoto(SendPhoto sendPhoto) {
+        try {
+            execute(sendPhoto);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void executeMessage(BotApiMethod<?> message) {
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

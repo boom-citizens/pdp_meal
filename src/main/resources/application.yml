@@ -17,3 +17,5 @@ spring:
 
 server:
   port: 9090
+bot:
+  name: PDPFoodBot

@@ -7,13 +7,13 @@ package uz.d4uranbek.pdp_meal.bot.state;
  */
 public enum UserState {
     REGISTER,
-    CHOOSE_DEPARTMENT,
-    ACCEPT_DEPARTMENT,
     LANGUAGE,
     LANGUAGE_CHOSEN,
     FULL_NAME,
     PASSWORD,
     PHONE,
     POSITION,
+    CHOOSE_DEPARTMENT,
+    ACCEPT_DEPARTMENT,
     AUTHORIZED;
 }
