@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
+import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
@@ -32,13 +33,28 @@ public class OrderController extends AbstractController<OrderServiceImpl> {
     }
 
     @GetMapping("/list")
-    public List<OrderDto> meals() {
+    public List<OrderDto> orders() {
         return service.getAll(new GenericCriteria());
     }
 
-    @GetMapping("/{id}")
-    public OrderDto meal(@PathVariable Long id) {
+    @GetMapping("/id/{id}")
+    public OrderDto order(@PathVariable Long id) {
         return service.get(id);
+    }
+
+    @GetMapping("/date/{date}")
+    public List<OrderDto> orderByDate(@PathVariable String date) {
+        return service.getAllByDate(date);
+    }
+
+    @GetMapping("/meal/{id}")
+    public List<OrderDto> orderByMealId(@PathVariable Long mealId) {
+        return service.getAllByMealId(mealId);
+    }
+
+    @GetMapping("/user/{id}")
+    public List<OrderDto> orderByUserId(@PathVariable Long userId) {
+        return service.getAllByUserId(userId);
     }
 
     @PostMapping("/create")

@@ -3,6 +3,7 @@ package uz.d4uranbek.pdp_meal.service.order;
 
 import org.springframework.stereotype.Service;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
+import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
@@ -85,5 +86,17 @@ public class OrderServiceImpl extends AbstractService<
     @Override
     public Long totalCount(GenericCriteria criteria) {
         return null;
+    }
+
+    public List<OrderDto> getAllByDate(String date) {
+        LocalDate localDate = validator.validDate(date);
+        return mapper.toDto(repository.findAllByDate(localDate));
+    }
+
+    public List<OrderDto> getAllByMealId(Long mealId) {
+        return mapper.toDto(repository.findAllByMealId(mealId));
+    }
+    public List<OrderDto> getAllByUserId(Long userId) {
+        return mapper.toDto(repository.findAllByUserId(userId));
     }
 }
