@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
-public class PdpMealApplication implements CommandLineRunner {
+public class PdpMealApplication /*implements CommandLineRunner */{
 
     private final PasswordEncoder passwordEncoder;
     private final PermissionRepository permissionRepository;
@@ -42,7 +42,7 @@ public class PdpMealApplication implements CommandLineRunner {
         SpringApplication.run(PdpMealApplication.class, args);
     }
 
-    @Override
+//    @Override
     public void run(String... args) throws Exception {
 /*
         Positions teacher = new Positions("TEACHER","Teacher");
