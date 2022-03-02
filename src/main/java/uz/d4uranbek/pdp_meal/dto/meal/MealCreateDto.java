@@ -17,7 +17,6 @@ import java.time.LocalDate;
 public class MealCreateDto implements Dto {
 
     private String name;
-
-    private LocalDate date;
+    private String date;
 
 }

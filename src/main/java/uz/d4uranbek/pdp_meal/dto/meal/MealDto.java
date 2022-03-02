@@ -16,12 +16,11 @@ import java.time.LocalDate;
 public class MealDto extends GenericDto {
 
     private String name;
-
-    private LocalDate date;
+    private String date;
 
 
     @Builder(builderMethodName = "childBuilder")
-    public MealDto(Long id, String name, LocalDate date) {
+    public MealDto(Long id, String name, String date) {
         super(id);
         this.name = name;
         this.date = date;
