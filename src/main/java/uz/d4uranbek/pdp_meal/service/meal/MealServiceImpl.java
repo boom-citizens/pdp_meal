@@ -47,10 +47,12 @@ public class MealServiceImpl extends AbstractService<
 
     @Override
     public Void update(MealUpdateDto updateDto) {
+        validator.validOnUpdate(updateDto);
         Meal meal = repository
                 .findById(updateDto.getId())
                 .orElseThrow(() -> new RuntimeException("Not Found"));
         mapper.fromUpdateDto(updateDto, meal);
+//        meal.setDate(LocalDate.parse(updateDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         repository.save(meal);
 
         return null;

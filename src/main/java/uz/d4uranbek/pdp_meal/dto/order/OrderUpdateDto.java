@@ -16,10 +16,10 @@ public class OrderUpdateDto extends GenericDto {
 
     private Long userId;
     private Long mealId;
-    private LocalDate date;
+    private String date;
     private boolean received;
 
-    public OrderUpdateDto(Long id, Long userId, Long mealId, LocalDate date, boolean received) {
+    public OrderUpdateDto(Long id, Long userId, Long mealId, String date, boolean received) {
         super(id);
         this.userId = userId;
         this.mealId = mealId;

@@ -18,7 +18,6 @@ public class OrderCreateDto implements Dto {
 
     private Long userId;
     private Long mealId;
-    private LocalDate date;
-    private boolean received;
+    private String date;
 
 }
