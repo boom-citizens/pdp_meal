@@ -60,7 +60,7 @@ public class PdpMealApplication implements CommandLineRunner {
         user2.setUserName("mrElyor");
         user2.setPassword(passwordEncoder.encode("7722"));
 
-
+authUserRepository.saveAll(List.of(user1,user2));
 
         /*roleRepository.saveAll(List.of(admin));
         authUserRepository.saveAll(List.of(adminUser));*/

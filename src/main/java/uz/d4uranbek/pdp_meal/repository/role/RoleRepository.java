@@ -1,6 +1,8 @@
 package uz.d4uranbek.pdp_meal.repository.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
 
 /**
@@ -11,6 +13,8 @@ import uz.d4uranbek.pdp_meal.entity.role.Role;
  * @project : mealDeliver
  */
 
+@Transactional
+@Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
 }

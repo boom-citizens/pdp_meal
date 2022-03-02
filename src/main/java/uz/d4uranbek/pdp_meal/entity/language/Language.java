@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-
+@Table(name = "languages")
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

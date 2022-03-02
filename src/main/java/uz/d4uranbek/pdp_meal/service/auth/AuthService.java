@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.services.auth;
+package uz.d4uranbek.pdp_meal.service.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;

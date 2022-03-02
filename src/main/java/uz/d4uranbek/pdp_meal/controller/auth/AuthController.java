@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthRequestDto;
-import uz.d4uranbek.pdp_meal.services.auth.AuthService;
+import uz.d4uranbek.pdp_meal.service.auth.AuthService;
 
 /**
  * Created by Elyor Ergashov

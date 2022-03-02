@@ -28,7 +28,7 @@ public class User extends Auditable {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "phone", unique = true,nullable = false)
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Column(name = "password",nullable = false)
@@ -56,7 +56,7 @@ public class User extends Auditable {
 
     private List<Positions> position;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private Status status;
 
     public User(
