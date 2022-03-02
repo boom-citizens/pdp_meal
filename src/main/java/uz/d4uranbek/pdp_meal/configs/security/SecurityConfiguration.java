@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomAuthentication authenticationManager;
     private final UserDetailsService userDetailsService;
     private final String[] WHITE_LIST = {
-            "/auth/login"
+            "/auth/login", "/api/**"
     };
 
 

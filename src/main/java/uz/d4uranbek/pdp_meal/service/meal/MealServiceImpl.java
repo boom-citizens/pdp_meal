@@ -35,7 +35,6 @@ public class MealServiceImpl extends AbstractService<
     public Long create(MealCreateDto createDto) {
         validator.validOnCreate(createDto);
         Meal meal = mapper.fromCreateDto(createDto);
-        meal.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         return repository.save(meal).getId();
     }
 
@@ -52,7 +51,7 @@ public class MealServiceImpl extends AbstractService<
                 .findById(updateDto.getId())
                 .orElseThrow(() -> new RuntimeException("Not Found"));
         mapper.fromUpdateDto(updateDto, meal);
-//        meal.setDate(LocalDate.parse(updateDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+//        meal.setDate(LocalDate.parse(updateDto.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         repository.save(meal);
 
         return null;
