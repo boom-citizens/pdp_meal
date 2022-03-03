@@ -39,7 +39,8 @@ public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapp
         Order order = mapper.fromCreateDto(createDto);
         order.setUser(userRepository.getById(createDto.getUserId()));
         order.setMeal(mealRepository.getById(createDto.getMealId()));
-        order.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+        order.setDate(LocalDate.parse(createDto.getDate()));
+//        order.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         return repository.save(order).getId();
     }
 
