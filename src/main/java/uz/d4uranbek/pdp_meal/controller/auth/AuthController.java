@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthRequestDto;
-import uz.d4uranbek.pdp_meal.service.auth.AuthService;
+import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
 
 /**
  * Created by Elyor Ergashov
@@ -20,10 +20,10 @@ import uz.d4uranbek.pdp_meal.service.auth.AuthService;
 @RequestMapping("/auth/*")
 
 public class AuthController {
-    private final AuthService service;
+    private final AuthServiceImpl service;
 
     @Autowired
-    public AuthController(AuthService service) {
+    public AuthController(AuthServiceImpl service) {
         this.service = service;
     }
 

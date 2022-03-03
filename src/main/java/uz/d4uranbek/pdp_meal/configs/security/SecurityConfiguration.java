@@ -25,7 +25,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true
+        prePostEnabled = true,
+        securedEnabled = true
 )
 
 @RequiredArgsConstructor

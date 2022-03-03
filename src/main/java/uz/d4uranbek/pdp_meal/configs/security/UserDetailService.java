@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.d4uranbek.pdp_meal.entity.auth.User;
-import uz.d4uranbek.pdp_meal.repository.auth.AuthUserRepository;
+import uz.d4uranbek.pdp_meal.repository.auth.AuthRepository;
 
 /**
  * Created by Elyor Ergashov
@@ -21,9 +21,9 @@ import uz.d4uranbek.pdp_meal.repository.auth.AuthUserRepository;
 
 public class UserDetailService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
-    private final AuthUserRepository repository;
+    private final AuthRepository repository;
 
-    public UserDetailService(PasswordEncoder passwordEncoder, AuthUserRepository repository) {
+    public UserDetailService(PasswordEncoder passwordEncoder, AuthRepository repository) {
         this.passwordEncoder = passwordEncoder;
         this.repository = repository;
     }

@@ -40,12 +40,12 @@ public class CustomAuthentication implements AuthenticationManager {
             if (!passwordEncoder.passwordEncoder().matches(password, user.getPassword())) {
                 throw new BadCredentialsException("User not found");
             }
-            if (!user.isEnabled()) {
+           /* if (!user.isEnabled()) {
                 throw new DisabledException("User is not active");
             }
             if (!user.isAccountNonLocked()) {
                 throw new DisabledException("User is not locked");
-            }
+            }*/
         } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException(e.getMessage(), e);
         }
