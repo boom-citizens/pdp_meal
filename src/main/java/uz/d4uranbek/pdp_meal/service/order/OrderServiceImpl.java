@@ -27,7 +27,7 @@ public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapp
     private final MealRepository mealRepository;
     private final AuthRepository userRepository;
 
-    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthUserRepository userRepository, AuthRepository userRepository1) {
+    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthRepository userRepository, AuthRepository userRepository1) {
         super(repository, mapper, validator);
         this.mealRepository = mealRepository;
         this.userRepository = userRepository1;
