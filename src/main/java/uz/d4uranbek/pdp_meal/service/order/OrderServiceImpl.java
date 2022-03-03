@@ -15,7 +15,6 @@ import uz.d4uranbek.pdp_meal.service.AbstractService;
 import uz.d4uranbek.pdp_meal.validator.order.OrderValidator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -27,11 +26,12 @@ public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapp
     private final MealRepository mealRepository;
     private final AuthRepository userRepository;
 
-    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthRepository userRepository, AuthRepository userRepository1) {
+    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthRepository userRepository) {
         super(repository, mapper, validator);
         this.mealRepository = mealRepository;
-        this.userRepository = userRepository1;
+        this.userRepository = userRepository;
     }
+
 
     @Override
     public Long create(OrderCreateDto createDto) {
@@ -97,7 +97,7 @@ public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapp
         return mapper.toDto(repository.findAllByDate(LocalDate.now()));
     }
 
-    public void cronJob() {
-
+    public List<Long> notOrderedUsersList() {
+        return repository.notOrderedUsersList();
     }
 }

@@ -4,7 +4,6 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
-import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
@@ -75,5 +74,10 @@ public class OrderController extends AbstractController<OrderServiceImpl> {
     @GetMapping("/today")
     public List<OrderDto> ordersOfToday() {
         return service.ordersOfToday();
+    }
+
+    @GetMapping("/not-ordered-users")
+    public List<Long> notOrderedUsersList() {
+        return service.notOrderedUsersList();
     }
 }
