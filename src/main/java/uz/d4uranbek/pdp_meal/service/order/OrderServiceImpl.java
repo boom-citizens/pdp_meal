@@ -7,6 +7,7 @@ import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
 import uz.d4uranbek.pdp_meal.entity.order.Order;
+import uz.d4uranbek.pdp_meal.exception.ValidationException;
 import uz.d4uranbek.pdp_meal.mapper.order.OrderMapper;
 import uz.d4uranbek.pdp_meal.repository.auth.AuthRepository;
 import uz.d4uranbek.pdp_meal.repository.meal.MealRepository;
@@ -37,10 +38,12 @@ public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapp
     public Long create(OrderCreateDto createDto) {
         validator.validOnCreate(createDto);
         Order order = mapper.fromCreateDto(createDto);
+        if (repository.existsByUserIdAndDate(createDto.getUserId(), LocalDate.parse(createDto.getDate()))) {
+            throw new ValidationException("You have already ordered (You cant update your order).");
+        }
         order.setUser(userRepository.getById(createDto.getUserId()));
         order.setMeal(mealRepository.getById(createDto.getMealId()));
-        order.setDate(LocalDate.parse(createDto.getDate()));
-//        order.setDate(LocalDate.parse(createDto.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+//        order.setDate(LocalDate.parse(createDto.getDate()));
         return repository.save(order).getId();
     }
 

@@ -9,6 +9,7 @@ import uz.d4uranbek.pdp_meal.repository.AbstractRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author D4uranbek ср. 18:29. 02.03.2022
@@ -16,6 +17,8 @@ import java.util.List;
 @Transactional
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>, AbstractRepository {
+
+    boolean existsByUserIdAndDate(Long id, LocalDate localDate);
 
     List<Order> findAllByDate(LocalDate localDate);
 
