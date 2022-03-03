@@ -4,8 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
-
-import java.time.LocalDate;
+import uz.d4uranbek.pdp_meal.entity.auth.User;
+import uz.d4uranbek.pdp_meal.entity.meal.Meal;
 
 /**
  * @author D4uranbek ср. 12:57. 02.03.2022
@@ -15,16 +15,16 @@ import java.time.LocalDate;
 @Setter
 public class OrderDto extends GenericDto {
 
-    private Long userId;
-    private Long mealId;
+    private User user;
+    private Meal meal;
     private String date;
     private boolean received;
 
     @Builder(builderMethodName = "childBuilder")
-    public OrderDto(Long id, Long userId, Long mealId, String date, boolean received) {
+    public OrderDto(Long id, User user, Meal meal, String date, boolean received) {
         super(id);
-        this.userId = userId;
-        this.mealId = mealId;
+        this.user = user;
+        this.meal = meal;
         this.date = date;
         this.received = received;
     }

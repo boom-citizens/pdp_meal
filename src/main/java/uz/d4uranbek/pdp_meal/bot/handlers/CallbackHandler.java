@@ -39,13 +39,13 @@ public class CallbackHandler implements BaseHandler {
                 sendMessage.setReplyMarkup(new ForceReplyKeyboard());
                 bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
                 bot.executeMessage(sendMessage);
-                changeState(chatId,UserState.LANGUAGE_CHOSEN);
+                changeState(chatId, UserState.LANGUAGE_CHOSEN);
             }
             case "mentors", "economic", "sales" -> {
                 SendMessage sendMessage = messageObj(chatId, "Your information is being verified");
                 bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
                 bot.executeMessage(sendMessage);
-                changeState(chatId,UserState.DEPARTMENT_CHOSEN);
+                changeState(chatId, UserState.DEPARTMENT_CHOSEN);
             }
         }
     }

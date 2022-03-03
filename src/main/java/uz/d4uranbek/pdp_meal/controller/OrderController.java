@@ -71,4 +71,9 @@ public class OrderController extends AbstractController<OrderServiceImpl> {
     public Void update(@RequestBody OrderUpdateDto dto) {
         return service.update(dto);
     }
+
+    @GetMapping("/today")
+    public List<OrderDto> ordersOfToday() {
+        return service.ordersOfToday();
+    }
 }

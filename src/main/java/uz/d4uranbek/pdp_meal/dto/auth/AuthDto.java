@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.d4uranbek.pdp_meal.dto.Dto;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;

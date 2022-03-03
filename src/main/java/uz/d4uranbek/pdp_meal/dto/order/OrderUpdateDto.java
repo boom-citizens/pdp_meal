@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
 
-import java.time.LocalDate;
-
 /**
  * @author D4uranbek ср. 12:57. 02.03.2022
  */

@@ -3,13 +3,12 @@ package uz.d4uranbek.pdp_meal.service.order;
 
 import org.springframework.stereotype.Service;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
-import uz.d4uranbek.pdp_meal.dto.meal.MealDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderCreateDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderDto;
 import uz.d4uranbek.pdp_meal.dto.order.OrderUpdateDto;
 import uz.d4uranbek.pdp_meal.entity.order.Order;
 import uz.d4uranbek.pdp_meal.mapper.order.OrderMapper;
-import uz.d4uranbek.pdp_meal.repository.auth.AuthUserRepository;
+import uz.d4uranbek.pdp_meal.repository.auth.AuthRepository;
 import uz.d4uranbek.pdp_meal.repository.meal.MealRepository;
 import uz.d4uranbek.pdp_meal.repository.order.OrderRepository;
 import uz.d4uranbek.pdp_meal.service.AbstractService;
@@ -23,19 +22,15 @@ import java.util.List;
  * @author D4uranbek ср. 18:53. 02.03.2022
  */
 @Service
-public class OrderServiceImpl extends AbstractService<
-        OrderRepository,
-        OrderMapper,
-        OrderValidator>
-        implements OrderService {
+public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapper, OrderValidator> implements OrderService {
 
     private final MealRepository mealRepository;
-    private final AuthUserRepository userRepository;
+    private final AuthRepository userRepository;
 
-    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthUserRepository userRepository) {
+    protected OrderServiceImpl(OrderRepository repository, OrderMapper mapper, OrderValidator validator, MealRepository mealRepository, AuthUserRepository userRepository, AuthRepository userRepository1) {
         super(repository, mapper, validator);
         this.mealRepository = mealRepository;
-        this.userRepository = userRepository;
+        this.userRepository = userRepository1;
     }
 
     @Override
@@ -57,9 +52,7 @@ public class OrderServiceImpl extends AbstractService<
     @Override
     public Void update(OrderUpdateDto updateDto) {
         validator.validOnUpdate(updateDto);
-        Order order = repository
-                .findById(updateDto.getId())
-                .orElseThrow(() -> new RuntimeException("Not Found"));
+        Order order = repository.findById(updateDto.getId()).orElseThrow(() -> new RuntimeException("Not Found"));
         mapper.fromUpdateDto(updateDto, order);
         repository.save(order);
 
@@ -78,9 +71,7 @@ public class OrderServiceImpl extends AbstractService<
 
     @Override
     public OrderDto get(Long id) {
-        return mapper.toDto(repository
-                .findById(id)
-                .orElseThrow(() -> new RuntimeException("Not Found")));
+        return mapper.toDto(repository.findById(id).orElseThrow(() -> new RuntimeException("Not Found")));
     }
 
     @Override
@@ -96,7 +87,16 @@ public class OrderServiceImpl extends AbstractService<
     public List<OrderDto> getAllByMealId(Long mealId) {
         return mapper.toDto(repository.findAllByMealId(mealId));
     }
+
     public List<OrderDto> getAllByUserId(Long userId) {
         return mapper.toDto(repository.findAllByUserId(userId));
+    }
+
+    public List<OrderDto> ordersOfToday() {
+        return mapper.toDto(repository.findAllByDate(LocalDate.now()));
+    }
+
+    public void cronJob() {
+
     }
 }

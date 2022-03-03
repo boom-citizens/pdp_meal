@@ -26,25 +26,25 @@ public class MessageHandler implements BaseHandler {
     @Override
     public void process(Update update) {
         long chatId = update.getMessage().getChatId();
-        if (!isAuthorized(chatId)){
-            authorizationProcessor.process(update,state.getState(chatId));
+        if (!isAuthorized(chatId)) {
+            authorizationProcessor.process(update, state.getState(chatId));
         }
 
-        if(update.getMessage().hasText()){
-            String text=update.getMessage().getText();
-            if(text.equals("Ovqat zakaz")){
-                changeState(chatId,UserState.OVQAT_ZAKAZ);
-            }else if(text.equals("Zakaz atmen")){
-                changeState(chatId,UserState.ZAKAZ_ATMEN);
-            }else if(text.equals("Zakaz update")){
-                changeState(chatId,UserState.ZAKAZ_UPDATE);
-            }else if(text.equals("Add name")){
-                changeState(chatId,UserState.ADD_NAME);
-            }else if(text.equals("Settings")){
-                changeState(chatId,UserState.SETTINGS);
+        if (update.getMessage().hasText()) {
+            String text = update.getMessage().getText();
+            if (text.equals("Ovqat zakaz")) {
+                changeState(chatId, UserState.OVQAT_ZAKAZ);
+            } else if (text.equals("Zakaz atmen")) {
+                changeState(chatId, UserState.ZAKAZ_ATMEN);
+            } else if (text.equals("Zakaz update")) {
+                changeState(chatId, UserState.ZAKAZ_UPDATE);
+            } else if (text.equals("Add name")) {
+                changeState(chatId, UserState.ADD_NAME);
+            } else if (text.equals("Settings")) {
+                changeState(chatId, UserState.SETTINGS);
             }
         }
-        MainProcessor.process(update,state.getState(chatId));
+        MainProcessor.process(update, state.getState(chatId));
     }
 
 

@@ -29,17 +29,17 @@ public class MarkupBoards {
 
     public static ReplyKeyboard mainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton( "Ovqat zakaz"));
+        row1.add(new KeyboardButton("Ovqat zakaz"));
         row1.add(new KeyboardButton("Zakaz atmen"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton( "Zakaz update"));
+        row2.add(new KeyboardButton("Zakaz update"));
         row2.add(new KeyboardButton("Add name"));
 
         KeyboardRow row3 = new KeyboardRow();
-        row3.add(new KeyboardButton( "settings"));
+        row3.add(new KeyboardButton("settings"));
 
-        board.setKeyboard(List.of(row1,row2,row3));
+        board.setKeyboard(List.of(row1, row2, row3));
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;

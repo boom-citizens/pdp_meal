@@ -4,9 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
-import uz.d4uranbek.pdp_meal.entity.position.Positions;
-import uz.d4uranbek.pdp_meal.entity.role.Role;
-import uz.d4uranbek.pdp_meal.enums.Status;
 
 /**
  * Created by Elyor Ergashov
