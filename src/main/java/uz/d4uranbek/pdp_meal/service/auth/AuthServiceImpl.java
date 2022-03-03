@@ -15,12 +15,14 @@ import uz.d4uranbek.pdp_meal.dto.auth.AuthDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthRequestDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthUpdateDto;
 import uz.d4uranbek.pdp_meal.entity.auth.User;
+import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
 import uz.d4uranbek.pdp_meal.enums.Status;
 import uz.d4uranbek.pdp_meal.mapper.auth.AuthMapper;
 import uz.d4uranbek.pdp_meal.repository.auth.AuthRepository;
+import uz.d4uranbek.pdp_meal.repository.department.DepartmentRepository;
 import uz.d4uranbek.pdp_meal.repository.language.LanguageRepository;
 import uz.d4uranbek.pdp_meal.repository.position.PositionRepository;
 import uz.d4uranbek.pdp_meal.repository.role.RoleRepository;
@@ -50,9 +52,10 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
     private final RoleRepository roleRepository;
     private final LanguageRepository languageRepository;
     private final PositionRepository positionRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public AuthServiceImpl(CustomAuthentication authenticationManager, UserDetailsService userService, AuthRepository repository, AuthMapper mapper, AuthValidator validator, PasswordEncoder passwordEncoder, RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository) {
+    public AuthServiceImpl(CustomAuthentication authenticationManager, UserDetailsService userService, AuthRepository repository, AuthMapper mapper, AuthValidator validator, PasswordEncoder passwordEncoder, RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository) {
         super(repository, mapper, validator);
         this.authenticationManager = authenticationManager;
         this.userService = userService;
@@ -63,6 +66,7 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
         this.roleRepository = roleRepository;
         this.languageRepository = languageRepository;
         this.positionRepository = positionRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     @Override
@@ -74,6 +78,7 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
         user.setRole(getAuthRole(createDto.getRole()));
         user.setPosition(getPosition(createDto.getPosition()));
         user.setStatus(Status.getStatus(createDto.getStatus()));
+        user.setDepartment(getDepartment(createDto.getDepartment()));
         repository.save(user);
         return user.getId();
     }
@@ -161,6 +166,13 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
                     throw new RuntimeException("Position not found");
                 });
 
+    }
+
+    private Department getDepartment(String department){
+        return departmentRepository.findAll().stream().filter(department1 ->
+                department1.getId().toString().equalsIgnoreCase(department)).findFirst().orElseThrow(()->{
+                    throw new RuntimeException("Department not found");
+        });
     }
 
 }

@@ -5,6 +5,7 @@ import uz.d4uranbek.pdp_meal.entity.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
@@ -56,10 +57,14 @@ public class User extends Auditable {
     @Column(name = "status")
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     public User(
             Long createBy, LocalDateTime createdAt, String userName,
                 String phone, String password, String fullName, Language language,
-                Role role, Long chatId, Positions position, Status status) {
+                Role role, Long chatId, Positions position, Status status,Department department) {
         super( createBy, createdAt);
         this.userName = userName;
         this.phone = phone;
@@ -70,6 +75,7 @@ public class User extends Auditable {
         this.chatId = chatId;
         this.position = position;
         this.status = status;
+        this.department = department;
     }
 
 

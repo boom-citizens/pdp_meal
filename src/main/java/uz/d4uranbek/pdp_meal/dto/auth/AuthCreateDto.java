@@ -30,4 +30,5 @@ public class AuthCreateDto implements Dto {
     private String role;
     private String position;
     private String status;
+    private String department;
 }

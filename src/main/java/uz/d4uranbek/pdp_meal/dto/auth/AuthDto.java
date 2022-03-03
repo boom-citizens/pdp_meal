@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
+import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
@@ -32,6 +33,7 @@ public class AuthDto extends GenericDto {
     private Long chatId;
     private Positions position;
     private Status status;
+    private Department department;
 
     public AuthDto(Long id, String userName, String phone,
                    String password, String fullName,

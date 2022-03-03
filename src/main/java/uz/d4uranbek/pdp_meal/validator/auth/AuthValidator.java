@@ -3,11 +3,13 @@ package uz.d4uranbek.pdp_meal.validator.auth;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthUpdateDto;
+import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
 import uz.d4uranbek.pdp_meal.enums.Status;
 import uz.d4uranbek.pdp_meal.exception.ValidationException;
+import uz.d4uranbek.pdp_meal.repository.department.DepartmentRepository;
 import uz.d4uranbek.pdp_meal.repository.language.LanguageRepository;
 import uz.d4uranbek.pdp_meal.repository.position.PositionRepository;
 import uz.d4uranbek.pdp_meal.repository.role.RoleRepository;
@@ -28,11 +30,15 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
     private final RoleRepository roleRepository;
     private final LanguageRepository languageRepository;
     private final PositionRepository positionRepository;
+    private final DepartmentRepository departmentRepository;
 
-    public AuthValidator(RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository) {
+
+
+    public AuthValidator(RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository) {
         this.roleRepository = roleRepository;
         this.languageRepository = languageRepository;
         this.positionRepository = positionRepository;
+        this.departmentRepository = departmentRepository;
     }
 
     @Override
@@ -46,7 +52,7 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
                 && Objects.nonNull(authCreateDto.getUserName())
                 && Objects.nonNull(authCreateDto.getPosition())))
             throw new ValidationException("User dont valid");
-        if (!(checkAuthRole(authCreateDto.getRole()) &&
+        if (!(checkDepartment(authCreateDto.getDepartment()) && checkAuthRole(authCreateDto.getRole()) &&
         checkLanguage(authCreateDto.getLanguage()) &&
         checkPosition(authCreateDto.getPosition()) &&
                 checkStatus(authCreateDto.getStatus())))
@@ -89,6 +95,15 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
                 return true;
         }
         return false;
+    }
+
+    private Boolean checkDepartment(String id){
+        Department department = departmentRepository.findAll().stream().
+                filter(department1 -> department1.getId().toString().equalsIgnoreCase(id)).findFirst()
+                .orElseThrow(()->{
+                   throw new RuntimeException("department not found");
+                });
+        return true;
     }
 
 

@@ -34,6 +34,7 @@ public interface AuthMapper extends BaseMapper<User, AuthDto, AuthCreateDto, Aut
     @Mapping(target = "role",ignore = true)
     @Mapping(target = "status",ignore = true)
     @Mapping(target = "position",ignore = true)
+    @Mapping( target =  "department", ignore = true)
      User fromCreateDto(AuthCreateDto authCreateDto) ;
 
     @Override
