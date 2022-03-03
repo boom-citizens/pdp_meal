@@ -1,6 +1,7 @@
 package uz.d4uranbek.pdp_meal.mapper.auth;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthDto;
@@ -20,25 +21,21 @@ import java.util.List;
 @Component
 @Mapper(componentModel = "spring")
 
-public class AuthMapper implements BaseMapper<User, AuthDto, AuthCreateDto, AuthUpdateDto> {
+public interface AuthMapper extends BaseMapper<User, AuthDto, AuthCreateDto, AuthUpdateDto> {
 
     @Override
-    public AuthDto toDto(User user) {
-        return null;
-    }
+     AuthDto toDto(User user) ;
 
     @Override
-    public List<AuthDto> toDto(List<User> e) {
-        return null;
-    }
+     List<AuthDto> toDto(List<User> e) ;
 
     @Override
-    public User fromCreateDto(AuthCreateDto authCreateDto) {
-        return null;
-    }
+    @Mapping(target = "language",ignore = true)
+    @Mapping(target = "role",ignore = true)
+    @Mapping(target = "status",ignore = true)
+    @Mapping(target = "position",ignore = true)
+     User fromCreateDto(AuthCreateDto authCreateDto) ;
 
     @Override
-    public User fromUpdateDto(AuthUpdateDto authUpdateDto) {
-        return null;
-    }
+     User fromUpdateDto(AuthUpdateDto authUpdateDto) ;
 }

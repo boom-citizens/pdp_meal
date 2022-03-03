@@ -26,7 +26,8 @@ public class AuthCreateDto implements Dto {
     private String phone;
     private String password;
     private String fullName;
-    private Language language;
-    private Role role;
-    private Positions position;
+    private String  language;
+    private String role;
+    private String position;
+    private String status;
 }

@@ -25,8 +25,6 @@ public class Department {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private User userId;
+    private Long headerChatId;
 
 }

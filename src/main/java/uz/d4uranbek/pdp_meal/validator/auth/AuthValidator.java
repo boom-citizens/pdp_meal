@@ -3,7 +3,14 @@ package uz.d4uranbek.pdp_meal.validator.auth;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthUpdateDto;
+import uz.d4uranbek.pdp_meal.entity.language.Language;
+import uz.d4uranbek.pdp_meal.entity.position.Positions;
+import uz.d4uranbek.pdp_meal.entity.role.Role;
+import uz.d4uranbek.pdp_meal.enums.Status;
 import uz.d4uranbek.pdp_meal.exception.ValidationException;
+import uz.d4uranbek.pdp_meal.repository.language.LanguageRepository;
+import uz.d4uranbek.pdp_meal.repository.position.PositionRepository;
+import uz.d4uranbek.pdp_meal.repository.role.RoleRepository;
 import uz.d4uranbek.pdp_meal.validator.AbstractValidator;
 
 import java.util.Objects;
@@ -18,6 +25,15 @@ import java.util.Objects;
 
 public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDto, Long> {
 
+    private final RoleRepository roleRepository;
+    private final LanguageRepository languageRepository;
+    private final PositionRepository positionRepository;
+
+    public AuthValidator(RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository) {
+        this.roleRepository = roleRepository;
+        this.languageRepository = languageRepository;
+        this.positionRepository = positionRepository;
+    }
 
     @Override
     public void validateKey(Long id) throws ValidationException {
@@ -26,15 +42,54 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
 
     @Override
     public void validOnCreate(AuthCreateDto authCreateDto) throws ValidationException {
-        if ((Objects.nonNull(authCreateDto.getPassword())
+        if (!(Objects.nonNull(authCreateDto.getPassword())
                 && Objects.nonNull(authCreateDto.getUserName())
                 && Objects.nonNull(authCreateDto.getPosition())))
             throw new ValidationException("User dont valid");
+        if (!(checkAuthRole(authCreateDto.getRole()) &&
+        checkLanguage(authCreateDto.getLanguage()) &&
+        checkPosition(authCreateDto.getPosition()) &&
+                checkStatus(authCreateDto.getStatus())))
+            throw new RuntimeException("Not Found");
     }
 
     @Override
     public void validOnUpdate(AuthUpdateDto cd) throws ValidationException {
-        if (Objects.isNull(cd))
+        if (Objects.isNull(cd.getId()))
             throw new ValidationException("User id not found");
     }
+    private Boolean checkAuthRole(String role){
+       Role value =  roleRepository.findAll().stream().
+               filter(role1 -> role1.getCode().equalsIgnoreCase(role)).
+               findFirst().orElseThrow(()->{
+           throw new RuntimeException("Role not found");
+       });
+       return true;
+    }
+    private Boolean checkLanguage(String lang){
+        Language language = languageRepository.findAll().stream().
+                filter(language1 -> language1.getCode().equalsIgnoreCase(lang)).
+                findFirst().orElseThrow(()->{
+                    throw new RuntimeException("Language not found");
+                });
+        return true;
+    }
+
+    private Boolean checkPosition(String position){
+        Positions positions = positionRepository.findAll().stream().
+                filter(positions1 -> positions1.getCode().equalsIgnoreCase(position)).findFirst().orElseThrow(()->{
+                    throw new RuntimeException("Position not found");
+                });
+        return true;
+    }
+
+    private Boolean checkStatus(String status){
+        for (Status value : Status.values()) {
+            if (value.getCode().equalsIgnoreCase(status))
+                return true;
+        }
+        return false;
+    }
+
+
 }

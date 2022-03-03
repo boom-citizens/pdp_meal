@@ -20,15 +20,15 @@ public class AuthUpdateDto extends GenericDto {
     private String userName;
     private String phone;
     private String fullName;
-    private Language language;
+
 
 
     public AuthUpdateDto(Long id, String userName, String phone,
-                         String fullName, Language language) {
+                         String fullName) {
         super(id);
         this.userName = userName;
         this.phone = phone;
         this.fullName = fullName;
-        this.language = language;
+
     }
 }

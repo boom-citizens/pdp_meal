@@ -1,13 +1,20 @@
 package uz.d4uranbek.pdp_meal.controller.auth;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import uz.d4uranbek.pdp_meal.controller.AbstractController;
+import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
+import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
+import uz.d4uranbek.pdp_meal.dto.auth.AuthDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthRequestDto;
+import uz.d4uranbek.pdp_meal.dto.auth.AuthUpdateDto;
+import uz.d4uranbek.pdp_meal.entity.auth.User;
+import uz.d4uranbek.pdp_meal.service.auth.AuthService;
 import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
+
+import java.util.List;
 
 /**
  * Created by Elyor Ergashov
@@ -17,18 +24,54 @@ import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
  * @project : mealDeliver
  */
 @RestController
-@RequestMapping("/auth/*")
+@RequestMapping("/api/auth/*")
+@Api(
+        value = "Api value for meal-controller",
+        consumes = "application/json",
+        produces = "application/json",
+        protocols = "http/https",
+        tags = {"auth-api"}
+)
 
-public class AuthController {
-    private final AuthServiceImpl service;
+public class AuthController extends AbstractController<AuthServiceImpl> {
+
 
     @Autowired
     public AuthController(AuthServiceImpl service) {
-        this.service = service;
+        super(service);
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody AuthRequestDto dto) {
         return service.login(dto);
     }
+
+    @PostMapping("create")
+    public Long create(@RequestBody AuthCreateDto dto){
+        return service.create(dto);
+    }
+
+    @DeleteMapping("{id}")
+    public Void delete(@PathVariable Long id){
+        return service.delete(id);
+    }
+
+    @GetMapping("{id}")
+    public AuthDto get(@PathVariable Long id){
+        return service.get(id);
+    }
+
+    @PutMapping("update")
+    public Void update(@RequestBody AuthUpdateDto dto){
+    return     service.update(dto);
+    }
+
+    @GetMapping("list")
+    public List<AuthDto> getAll(){
+        return service.getAll(new GenericCriteria());
+    }
+
+
+
+
 }

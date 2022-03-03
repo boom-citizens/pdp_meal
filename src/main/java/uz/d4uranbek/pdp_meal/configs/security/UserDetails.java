@@ -32,7 +32,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private Language language;
     private Role role;
     private Long chatId;
-    private List<Positions> position;
+    private Positions position;
     private Status status;
 
     public UserDetails(User user) {

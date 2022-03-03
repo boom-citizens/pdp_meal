@@ -19,5 +19,14 @@ public enum Status {
     BLOCK("Block"),
     UNBLOCK("UnBlock");
     private final String code;
+
+    public static  Status getStatus(String status){
+        for (Status value : values()) {
+            if (value.getCode().equalsIgnoreCase(status)){
+                return value;
+            }
+        }
+        return null;
+    }
 }
 

@@ -49,12 +49,9 @@ public class User extends Auditable {
     private Long chatId;
 
 
-   @OneToMany(fetch = FetchType.LAZY)
-   @JoinTable(name = "auth_position",
-           joinColumns = @JoinColumn(name = "user_id"),
-           inverseJoinColumns = @JoinColumn(name = "position_id"))
-
-    private List<Positions> position;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "position_id")
+    private Positions position;
 
     @Column(name = "status")
     private Status status;
@@ -62,7 +59,7 @@ public class User extends Auditable {
     public User(
             Long createBy, LocalDateTime createdAt, String userName,
                 String phone, String password, String fullName, Language language,
-                Role role, Long chatId, List<Positions> position, Status status) {
+                Role role, Long chatId, Positions position, Status status) {
         super( createBy, createdAt);
         this.userName = userName;
         this.phone = phone;

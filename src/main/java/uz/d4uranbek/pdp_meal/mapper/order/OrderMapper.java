@@ -36,5 +36,5 @@ public interface OrderMapper extends BaseMapper<
     @Override
     Order fromUpdateDto(OrderUpdateDto orderUpdateDto);
 
-    Order fromUpdateDto(OrderUpdateDto dto, @MappingTarget Order order);
+    Meal fromUpdateDto(OrderUpdateDto dto, @MappingTarget Order order);
 }
