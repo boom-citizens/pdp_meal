@@ -82,4 +82,8 @@ public class MealServiceImpl extends AbstractService<
         LocalDate localDate = validator.validDate(date);
         return mapper.toDto(repository.findAllByDate(localDate));
     }
+
+    public List<MealDto> getAllForToday() {
+        return mapper.toDto(repository.findAllByDate(LocalDate.now()));
+    }
 }
