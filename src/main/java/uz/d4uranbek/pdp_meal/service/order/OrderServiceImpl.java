@@ -57,7 +57,7 @@ public class OrderServiceImpl extends AbstractService<OrderRepository, OrderMapp
     public Void update(OrderUpdateDto updateDto) {
         validator.validOnUpdate(updateDto);
         Order order = repository.findById(updateDto.getId()).orElseThrow(() -> new RuntimeException("Not Found"));
-        mapper.fromUpdateDto(updateDto, order);
+        //mapper.fromUpdateDto(updateDto, order);
         repository.save(order);
 
         return null;

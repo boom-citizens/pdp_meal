@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
  * Project : pdp_meal
  */
 @Component
-public class UpdateHandler {
+public class UpdateHandler{
     private final MessageHandler messageHandler;
     private final CallbackHandler callbackHandler;
 

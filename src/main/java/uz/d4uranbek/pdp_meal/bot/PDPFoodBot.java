@@ -1,11 +1,15 @@
 package uz.d4uranbek.pdp_meal.bot;
 
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import uz.d4uranbek.pdp_meal.bot.handlers.UpdateHandler;
 
 /**
  * Author : Qozoqboyev Ixtiyor
@@ -15,9 +19,14 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Component
 public class PDPFoodBot extends TelegramLongPollingBot {
 
+    private final UpdateHandler handler;
+
+    public PDPFoodBot() {
+    }
+
     @Override
     public void onUpdateReceived(Update update) {
-
+        handler.handle(update);
     }
 
 

@@ -41,13 +41,23 @@ public class CallbackHandler implements BaseHandler {
                 bot.executeMessage(sendMessage);
                 changeState(chatId, UserState.LANGUAGE_CHOSEN);
             }
-            case "mentors", "economic", "sales" -> {
-                SendMessage sendMessage = messageObj(chatId, "Your information is being verified");
-                bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
-                bot.executeMessage(sendMessage);
-                changeState(chatId, UserState.DEPARTMENT_CHOSEN);
+            case "mentors" -> {
+                sendMessageToHead(1L, message);
+            }
+            case  "economic" -> {
+                sendMessageToHead(2L, message);
+            }
+            case "sales" -> {
+                sendMessageToHead(3L, message);
             }
         }
+    }
+
+    private void sendMessageToHead(long chatId, Message message) {
+        SendMessage sendMessage = messageObj(chatId, "Your information is being verified");
+        bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
+        bot.executeMessage(sendMessage);
+        changeState(chatId, UserState.DEPARTMENT_CHOSEN);
     }
 
     private void changeState(long chatID, UserState newState) {

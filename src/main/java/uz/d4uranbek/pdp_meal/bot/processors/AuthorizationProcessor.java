@@ -14,9 +14,15 @@ import uz.d4uranbek.pdp_meal.bot.buttons.InlineBoards;
 import uz.d4uranbek.pdp_meal.bot.buttons.MarkupBoards;
 import uz.d4uranbek.pdp_meal.bot.state.State;
 import uz.d4uranbek.pdp_meal.bot.state.UserState;
+import uz.d4uranbek.pdp_meal.entity.position.Positions;
+import uz.d4uranbek.pdp_meal.entity.role.Role;
+import uz.d4uranbek.pdp_meal.enums.Status;
 import uz.d4uranbek.pdp_meal.utils.Emojis;
 
 import java.io.File;
+import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -81,17 +87,20 @@ public class AuthorizationProcessor {
                 changeState(chatID, UserState.POSITION);
             }
         } else if (UserState.POSITION.equals(state)) {
-            //user.setPosition(message.getText());
+            user1.setPosition(List.of(new Positions(message.getText().toUpperCase(Locale.ROOT),message.getText())));
             SendMessage sendMessage = messageObj(chatID, "Choose Department please ");
             sendMessage.setReplyMarkup(InlineBoards.departmentButtons());
             bot.executeMessage(sendMessage);
             changeState(chatID, UserState.DEPARTMENT);
         } else if (UserState.DEPARTMENT_CHOSEN.equals(state)) {
-
+            //departmentHeadChatId(name)
         } else if (UserState.DEPARTMENT_ACCEPTED.equals(state)) {
             SendMessage sendMessage = messageObj(chatID, "Successfully registered");
             sendMessage.setReplyMarkup(MarkupBoards.mainMenu());
             bot.executeMessage(sendMessage);
+            user1.setRole(new Role("EMPLOYEE","Employee"));
+            user1.setStatus(Status.NOT_ACTIVE);
+            //save(user1)
             changeState(chatID, UserState.AUTHORIZED);
         }
     }
@@ -99,7 +108,6 @@ public class AuthorizationProcessor {
     private void changeState(long chatID, UserState newState) {
         state.setState(chatID, newState);
     }
-
 
     private SendMessage messageObj(long chatID, String text) {
         return new SendMessage(String.valueOf(chatID), text);
