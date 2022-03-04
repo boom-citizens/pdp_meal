@@ -28,7 +28,7 @@ public class MainProcessor {
         User user = message.getFrom();
 
         if(UserState.OVQAT_ZAKAZ.equals(state)){
-            //mealList();
+            //
         }
 
     }

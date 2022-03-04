@@ -29,14 +29,17 @@ public class MarkupBoards {
 
     public static ReplyKeyboard mainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton( "Ovqat zakaz"));
+        row1.add(new KeyboardButton("Ovqat zakaz"));
         row1.add(new KeyboardButton("Zakaz atmen"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton( "Zakaz update"));
-        row2.add(new KeyboardButton( "Settings"));
+        row2.add(new KeyboardButton("Zakaz update"));
+        row2.add(new KeyboardButton("Add name"));
 
-        board.setKeyboard(List.of(row1,row2));
+        KeyboardRow row3 = new KeyboardRow();
+        row3.add(new KeyboardButton("settings"));
+
+        board.setKeyboard(List.of(row1, row2, row3));
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;
@@ -44,16 +47,13 @@ public class MarkupBoards {
 
     public static ReplyKeyboard adminMainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton( "Zakazlar menu"));
-        row1.add(new KeyboardButton("User menu"));
+        row1.add(new KeyboardButton("Users"));
+        row1.add(new KeyboardButton("My zakazs"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton( "Ovqat menu"));
-        row2.add(new KeyboardButton("My zakaz"));
+        row2.add(new KeyboardButton("settings"));
 
-        KeyboardRow row3 = new KeyboardRow();
-        row3.add(new KeyboardButton( "Settings"));
-        board.setKeyboard(List.of(row1,row2,row3));
+        board.setKeyboard(List.of(row1, row2));
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;
@@ -61,17 +61,13 @@ public class MarkupBoards {
 
     public static ReplyKeyboard headDepartmentMainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton( "Ovqat zakaz"));
-        row1.add(new KeyboardButton("Zakaz atmen"));
+        row1.add(new KeyboardButton("Accept users"));
+        row1.add(new KeyboardButton("My zakazs"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton( "Zakaz update"));
-        row2.add(new KeyboardButton( "Accept users"));
+        row2.add(new KeyboardButton("settings"));
 
-        KeyboardRow row3 = new KeyboardRow();
-        row3.add(new KeyboardButton( "Settings"));
-
-        board.setKeyboard(List.of(row1,row2,row3));
+        board.setKeyboard(List.of(row1, row2));
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;
@@ -79,13 +75,14 @@ public class MarkupBoards {
 
     public static ReplyKeyboard deliverMainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton( "Ovqat qo'shish"));
-        row1.add(new KeyboardButton("Zakazlar ro'yhati"));
+        row1.add(new KeyboardButton("Today zakaz"));
+        row1.add(new KeyboardButton("Add meal"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton( "Settings"));
+        row2.add(new KeyboardButton("Meal update"));
+        row2.add(new KeyboardButton("settings"));
 
-        board.setKeyboard(List.of(row1,row2));
+        board.setKeyboard(List.of(row1, row2));
         board.setResizeKeyboard(true);
         board.setSelective(true);
         return board;
