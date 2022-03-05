@@ -84,7 +84,7 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
     private Boolean checkPosition(String position){
         Positions positions = positionRepository.findAll().stream().
                 filter(positions1 -> positions1.getCode().equalsIgnoreCase(position)).findFirst().orElseThrow(()->{
-                    throw new RuntimeException("Position not found");
+                    throw new ValidationException("Position not found");
                 });
         return true;
     }
