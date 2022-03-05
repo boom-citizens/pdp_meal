@@ -1,5 +1,6 @@
 package uz.d4uranbek.pdp_meal.validator.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthUpdateDto;
@@ -8,6 +9,7 @@ import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;
 import uz.d4uranbek.pdp_meal.entity.role.Role;
 import uz.d4uranbek.pdp_meal.enums.Status;
+
 import uz.d4uranbek.pdp_meal.exception.ValidationException;
 import uz.d4uranbek.pdp_meal.repository.department.DepartmentRepository;
 import uz.d4uranbek.pdp_meal.repository.language.LanguageRepository;
@@ -31,14 +33,18 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
     private final LanguageRepository languageRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
+    private final ValidationException validationException;
 
 
 
-    public AuthValidator(RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository) {
+    public AuthValidator(RoleRepository roleRepository, LanguageRepository languageRepository,
+                         PositionRepository positionRepository, DepartmentRepository departmentRepository,
+                         ValidationException validationException) {
         this.roleRepository = roleRepository;
         this.languageRepository = languageRepository;
         this.positionRepository = positionRepository;
         this.departmentRepository = departmentRepository;
+        this.validationException = validationException;
     }
 
     @Override
@@ -56,7 +62,7 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
         checkLanguage(authCreateDto.getLanguage()) &&
         checkPosition(authCreateDto.getPosition()) &&
                 checkStatus(authCreateDto.getStatus())))
-            throw new RuntimeException("Not Found");
+            throw new ValidationException("Not Found");
     }
 
     @Override
@@ -68,7 +74,7 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
        Role value =  roleRepository.findAll().stream().
                filter(role1 -> role1.getCode().equalsIgnoreCase(role)).
                findFirst().orElseThrow(()->{
-           throw new RuntimeException("Role not found");
+           throw new ValidationException("Role not found");
        });
        return true;
     }
@@ -76,7 +82,7 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
         Language language = languageRepository.findAll().stream().
                 filter(language1 -> language1.getCode().equalsIgnoreCase(lang)).
                 findFirst().orElseThrow(()->{
-                    throw new RuntimeException("Language not found");
+                    throw new ValidationException("Language not found");
                 });
         return true;
     }
@@ -101,7 +107,7 @@ public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDt
         Department department = departmentRepository.findAll().stream().
                 filter(department1 -> department1.getId().toString().equalsIgnoreCase(id)).findFirst()
                 .orElseThrow(()->{
-                   throw new RuntimeException("department not found");
+                   throw new ValidationException("department not found");
                 });
         return true;
     }

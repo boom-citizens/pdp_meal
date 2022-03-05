@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.validator.configs.filters;
+package uz.d4uranbek.pdp_meal.configs.filters;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import uz.d4uranbek.pdp_meal.validator.configs.jwtUtils.JwtUtils;
+import uz.d4uranbek.pdp_meal.configs.jwtUtils.JwtUtils;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthRequestDto;
 
 import uz.d4uranbek.pdp_meal.exception.BadRequestException;

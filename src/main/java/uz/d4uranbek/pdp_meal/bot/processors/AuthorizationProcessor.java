@@ -15,10 +15,8 @@ import uz.d4uranbek.pdp_meal.bot.buttons.MarkupBoards;
 import uz.d4uranbek.pdp_meal.bot.state.State;
 import uz.d4uranbek.pdp_meal.bot.state.UserState;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
-import uz.d4uranbek.pdp_meal.entity.position.Positions;
-import uz.d4uranbek.pdp_meal.entity.role.Role;
-import uz.d4uranbek.pdp_meal.enums.Status;
 import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
+
 import uz.d4uranbek.pdp_meal.utils.Emojis;
 
 import java.io.File;

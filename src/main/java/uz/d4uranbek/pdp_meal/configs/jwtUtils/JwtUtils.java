@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.validator.configs.jwtUtils;
+package uz.d4uranbek.pdp_meal.configs.jwtUtils;
 
 import com.auth0.jwt.JWT;
 

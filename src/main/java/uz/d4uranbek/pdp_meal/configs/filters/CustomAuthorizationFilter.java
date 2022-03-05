@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.validator.configs.filters;
+package uz.d4uranbek.pdp_meal.configs.filters;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import uz.d4uranbek.pdp_meal.validator.configs.jwtUtils.JwtUtils;
+import uz.d4uranbek.pdp_meal.configs.jwtUtils.JwtUtils;
 import uz.d4uranbek.pdp_meal.exception.InvalidTokenException;
 
 import javax.servlet.FilterChain;
