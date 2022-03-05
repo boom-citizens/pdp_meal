@@ -1,8 +1,7 @@
-package uz.d4uranbek.pdp_meal.configs.security;
+package uz.d4uranbek.pdp_meal.validator.configs.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
