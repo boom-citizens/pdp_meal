@@ -3,13 +3,12 @@ package uz.d4uranbek.pdp_meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import uz.d4uranbek.pdp_meal.bot.PDPFoodBot;
 import uz.d4uranbek.pdp_meal.entity.auth.User;
-import uz.d4uranbek.pdp_meal.repository.auth.AuthRepository;
 import uz.d4uranbek.pdp_meal.repository.permission.PermissionRepository;
 import uz.d4uranbek.pdp_meal.repository.role.RoleRepository;
-
-import java.util.List;
 
 @SpringBootApplication
 public class PdpMealApplication /*implements CommandLineRunner */{
@@ -17,20 +16,22 @@ public class PdpMealApplication /*implements CommandLineRunner */{
     private final PasswordEncoder passwordEncoder;
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
-    private final AuthRepository authUserRepository;
 
     @Autowired
-    public PdpMealApplication(PasswordEncoder passwordEncoder, PermissionRepository permissionRepository, RoleRepository roleRepository, AuthRepository authUserRepository) {
+    public PdpMealApplication(PasswordEncoder passwordEncoder, PermissionRepository permissionRepository, RoleRepository roleRepository) {
         this.passwordEncoder = passwordEncoder;
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
-        this.authUserRepository = authUserRepository;
     }
 
 
     public static void main(String[] args) {
-        SpringApplication.run(PdpMealApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(PdpMealApplication.class, args);
+        PDPFoodBot telegramBotConfigurer=run.getBean(PDPFoodBot.class);
+        telegramBotConfigurer.run();
     }
+
+
 
 //    @Override
     public void run(String... args) throws Exception {

@@ -43,21 +43,27 @@ public class CallbackHandler implements BaseHandler {
             }
             case "mentors" -> {
                 sendMessageToHead(1L, message);
+                sendMessageToUser(chatId, message);
             }
             case  "economic" -> {
                 sendMessageToHead(2L, message);
+                sendMessageToUser(chatId, message);
             }
             case "sales" -> {
                 sendMessageToHead(3L, message);
+                sendMessageToUser(chatId, message);
             }
         }
     }
 
-    private void sendMessageToHead(long chatId, Message message) {
+    private void sendMessageToHead(long l, Message message) {
+    }
+
+    private void sendMessageToUser(long chatId, Message message) {
         SendMessage sendMessage = messageObj(chatId, "Your information is being verified");
         bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
         bot.executeMessage(sendMessage);
-        changeState(chatId, UserState.DEPARTMENT_CHOSEN);
+        changeState(chatId, UserState.DEPARTMENT_ACCEPTED);
     }
 
     private void changeState(long chatID, UserState newState) {

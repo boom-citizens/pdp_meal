@@ -1,14 +1,14 @@
 package uz.d4uranbek.pdp_meal.bot;
 
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import uz.d4uranbek.pdp_meal.bot.handlers.UpdateHandler;
 
 /**
@@ -21,7 +21,17 @@ public class PDPFoodBot extends TelegramLongPollingBot {
 
     private final UpdateHandler handler;
 
-    public PDPFoodBot() {
+    public PDPFoodBot(@Lazy UpdateHandler handler) {
+        this.handler = handler;
+    }
+
+    public void run(){
+        try {
+            TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
+            api.registerBot(new PDPFoodBot(handler));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

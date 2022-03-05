@@ -27,9 +27,9 @@ public class AuthController {
         this.service = service;
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@RequestBody AuthRequestDto dto) {
-        return service.login(dto);
-    }
+//    @RequestMapping(value = "login", method = RequestMethod.POST)
+//    public ResponseEntity<String> login(@RequestBody AuthRequestDto dto) {
+//        return service.login(dto);
+//    }
 
 }
