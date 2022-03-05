@@ -38,6 +38,8 @@ import java.util.List;
  * @date : 3/2/2022
  * @project : mealDeliver
  */
+
+
 @Service
 public class AuthServiceImpl extends AbstractService<AuthRepository,
         AuthMapper, AuthValidator> implements AuthService {

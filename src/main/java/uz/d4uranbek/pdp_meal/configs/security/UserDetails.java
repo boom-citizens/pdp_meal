@@ -1,4 +1,4 @@
-package uz.d4uranbek.pdp_meal.validator.configs.security;
+package uz.d4uranbek.pdp_meal.configs.security;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,7 +43,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.language = user.getLanguage();
         this.role = user.getRole();
         this.chatId = user.getChatId();
-        this.position = user.getPosition();
+        this.position =  user.getPosition();
         this.status = user.getStatus();
     }
 
