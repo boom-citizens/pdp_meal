@@ -15,9 +15,6 @@ import uz.d4uranbek.pdp_meal.bot.buttons.MarkupBoards;
 import uz.d4uranbek.pdp_meal.bot.state.State;
 import uz.d4uranbek.pdp_meal.bot.state.UserState;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
-import uz.d4uranbek.pdp_meal.entity.position.Positions;
-import uz.d4uranbek.pdp_meal.entity.role.Role;
-import uz.d4uranbek.pdp_meal.enums.Status;
 import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
 import uz.d4uranbek.pdp_meal.utils.Emojis;
 
@@ -36,16 +33,20 @@ public class AuthorizationProcessor {
     private final PDPFoodBot bot;
     private final State state;
     private final AuthServiceImpl authService;
-
-    public AuthorizationProcessor(PDPFoodBot bot, State state, AuthServiceImpl authService) {
+    private final AuthCreateDto authCreateDto;
+    private final InlineBoards inlineBoards;
+    private final MarkupBoards markupBoards;
+    public AuthorizationProcessor(PDPFoodBot bot, State state, AuthServiceImpl authService, AuthCreateDto authCreateDto, InlineBoards inlineBoards, MarkupBoards markupBoards) {
         this.bot = bot;
         this.state = state;
         this.authService = authService;
+        this.authCreateDto = authCreateDto;
+        this.inlineBoards = inlineBoards;
+        this.markupBoards = markupBoards;
     }
 
 
     public void process(Update update, UserState state) {
-        AuthCreateDto authCreateDto=new AuthCreateDto();
         Message message = update.getMessage();
         long chatID = message.getChatId();
         User user = message.getFrom();
@@ -57,7 +58,7 @@ public class AuthorizationProcessor {
             bot.executePhoto(sendPhoto);
 
             SendMessage sendMessage = messageObj(chatID, "Choose language please");
-            sendMessage.setReplyMarkup(InlineBoards.languageButtons());
+            sendMessage.setReplyMarkup(inlineBoards.languageButtons());
             bot.executeMessage(sendMessage);
             changeState(chatID, UserState.LANGUAGE);
         } else if (UserState.LANGUAGE.equals(state)) {
@@ -91,7 +92,7 @@ public class AuthorizationProcessor {
         } else if (UserState.POSITION.equals(state)) {
             authCreateDto.setPosition(message.getText().toUpperCase(Locale.ROOT));
             SendMessage sendMessage = messageObj(chatID, "Choose Department please ");
-            sendMessage.setReplyMarkup(InlineBoards.departmentButtons());
+            sendMessage.setReplyMarkup(inlineBoards.departmentButtons());
             bot.executeMessage(sendMessage);
             changeState(chatID, UserState.DEPARTMENT);
         } else if (UserState.DEPARTMENT.equals(state)) {

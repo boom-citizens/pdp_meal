@@ -1,5 +1,6 @@
 package uz.d4uranbek.pdp_meal.bot.buttons;
 
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -13,6 +14,7 @@ import java.util.List;
  * Time : 02.03.2022 21:00
  * Project : pdp_meal
  */
+@Component
 public class MarkupBoards {
     private static final ReplyKeyboardMarkup board = new ReplyKeyboardMarkup();
 
