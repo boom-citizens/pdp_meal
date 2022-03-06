@@ -66,10 +66,10 @@ public class InlineBoards {
 
     public ReplyKeyboard forHeadButtons(Long chatId) {
         InlineKeyboardButton yes = new InlineKeyboardButton("Yes");
-        yes.setCallbackData(""+chatId);
+        yes.setCallbackData("yes"+chatId);
 
         InlineKeyboardButton no = new InlineKeyboardButton("No");
-        no.setCallbackData("no");
+        no.setCallbackData("no "+chatId);
 
         board.setKeyboard(List.of(List.of(yes, no)));
         return board;

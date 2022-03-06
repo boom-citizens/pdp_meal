@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.Dto;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
 import uz.d4uranbek.pdp_meal.entity.position.Positions;
@@ -20,7 +21,6 @@ import uz.d4uranbek.pdp_meal.entity.role.Role;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class AuthCreateDto implements Dto {
     private String userName;
     private String phone;
@@ -31,4 +31,5 @@ public class AuthCreateDto implements Dto {
     private String position;
     private String status;
     private String department;
+    private Long chatId;
 }

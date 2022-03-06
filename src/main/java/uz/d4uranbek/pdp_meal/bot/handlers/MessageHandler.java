@@ -48,9 +48,6 @@ public class MessageHandler implements BaseHandler {
         if (user.getRole().getCode().equals("ADMIN")) {
             sendPhoto.setReplyMarkup(MarkupBoards.adminMainMenu());
             sendPhoto.setPhoto(new InputFile(new File("src/main/resources/statics/contentManager.jpg")));
-        }else  if (user.getRole().getCode().equals("HEAD_DEPARTMENT")) {
-            sendPhoto.setReplyMarkup(MarkupBoards.headDepartmentMainMenu());
-            sendPhoto.setPhoto(new InputFile(new File("src/main/resources/statics/headDepartment.jpg")));
         }else  if (user.getRole().getCode().equals("DELIVER")) {
             sendPhoto.setReplyMarkup(MarkupBoards.deliverMainMenu());
             sendPhoto.setPhoto(new InputFile(new File("src/main/resources/statics/headDepartment.jpg")));
@@ -59,22 +56,29 @@ public class MessageHandler implements BaseHandler {
 
         if(update.getMessage().hasText()){
             String text=update.getMessage().getText();
-            if(text.equals("Ovqat zakaz")){
-                changeState(chatId,UserState.OVQAT_ZAKAZ);
-            }else if(text.equals("Zakaz atmen")){
-                changeState(chatId,UserState.ZAKAZ_ATMEN);
-            }else if(text.equals("Zakaz update")){
-                changeState(chatId,UserState.ZAKAZ_UPDATE);
-            }else if(text.equals("Add name")){
-                changeState(chatId,UserState.ADD_NAME);
+            if(text.equals("Order meal")){
+                changeState(chatId,UserState.ORDER_MEAL);
+            }else if(text.equals("Cancel order")){
+                changeState(chatId,UserState.CANCEL_ORDER);
+            }else if(text.equals("Update order")){
+                changeState(chatId,UserState.UPDATE_ORDER);
+            }else if(text.equals("Write Comment")){
+                changeState(chatId,UserState.WRITE_COMMENT);
             }else if(text.equals("Settings")){
                 changeState(chatId,UserState.SETTINGS);
+            }else if(text.equals("Users")){
+                changeState(chatId,UserState.USERS);
+            }else if(text.equals("My orders")){
+                changeState(chatId,UserState.MY_ORDERS);
+            }else if(text.equals("Today orders")){
+                changeState(chatId,UserState.TODAY_ORDERS);
+            }else if(text.equals("Add meals")){
+                changeState(chatId,UserState.ADD_MEALS);
+            }else if(text.equals("Update meals")){
+                changeState(chatId,UserState.UPDATE_MEALS);
             }
-
-
-            MainProcessor.process(update,state.getState(chatId));
+            mainProcessor.process(update,state.getState(chatId));
         }
-        MainProcessor.process(update,state.getState(chatId));
     }
 
 

@@ -177,4 +177,8 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
         });
     }
 
+
+    public void setLanguage(long chatId, String lang) {
+        repository.setLanguage(chatId,lang);
+    }
 }

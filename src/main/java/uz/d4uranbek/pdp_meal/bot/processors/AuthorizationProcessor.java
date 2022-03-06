@@ -34,14 +34,12 @@ public class AuthorizationProcessor {
     private final PDPFoodBot bot;
     private final State state;
     private final AuthServiceImpl authService;
-    private final AuthCreateDto authCreateDto;
     private final InlineBoards inlineBoards;
     private final MarkupBoards markupBoards;
-    public AuthorizationProcessor(PDPFoodBot bot, State state, AuthServiceImpl authService, AuthCreateDto authCreateDto, InlineBoards inlineBoards, MarkupBoards markupBoards) {
+    public AuthorizationProcessor(PDPFoodBot bot, State state, AuthServiceImpl authService, InlineBoards inlineBoards, MarkupBoards markupBoards) {
         this.bot = bot;
         this.state = state;
         this.authService = authService;
-        this.authCreateDto = authCreateDto;
         this.inlineBoards = inlineBoards;
         this.markupBoards = markupBoards;
     }
@@ -51,6 +49,7 @@ public class AuthorizationProcessor {
         Message message = update.getMessage();
         long chatID = message.getChatId();
         User user = message.getFrom();
+        AuthCreateDto authCreateDto=new AuthCreateDto();
         if (Objects.isNull(state)) {
             SendPhoto sendPhoto = new SendPhoto();
             sendPhoto.setChatId(message.getChatId().toString());
@@ -64,7 +63,11 @@ public class AuthorizationProcessor {
             changeState(chatID, UserState.LANGUAGE);
         } else if (UserState.LANGUAGE.equals(state)) {
             bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
-        } else if (UserState.LANGUAGE_CHOSEN.equals(state)) {
+        }else if (UserState.DEPARTMENT.equals(state)) {
+            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
+        } else if (UserState.DEPARTMENT_CHOSEN.equals(state)) {
+            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
+        } else if (UserState.DEPARTMENT_ACCEPTED.equals(state)) {
             authCreateDto.setFullName(message.getText());
             SendMessage sendMessage = messageObj(chatID, "Your password please");
             sendMessage.setReplyMarkup(new ForceReplyKeyboard());
@@ -91,19 +94,13 @@ public class AuthorizationProcessor {
                 changeState(chatID, UserState.POSITION);
             }
         } else if (UserState.POSITION.equals(state)) {
-            authCreateDto.setPosition(message.getText().toUpperCase(Locale.ROOT));
-            SendMessage sendMessage = messageObj(chatID, "Choose Department please ");
-            sendMessage.setReplyMarkup(inlineBoards.departmentButtons());
-            bot.executeMessage(sendMessage);
-            changeState(chatID, UserState.DEPARTMENT);
-        } else if (UserState.DEPARTMENT.equals(state)) {
-            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
-        } else if (UserState.DEPARTMENT_ACCEPTED.equals(state)) {
+            authCreateDto.setPosition(message.getText());
             SendMessage sendMessage = messageObj(chatID, "Successfully registered");
             sendMessage.setReplyMarkup(MarkupBoards.mainMenu());
             bot.executeMessage(sendMessage);
             authCreateDto.setRole("EMPLOYEE");
             authCreateDto.setStatus("ACTIVE");
+            authCreateDto.setChatId(chatID);
             authService.create(authCreateDto);
             changeState(chatID, UserState.AUTHORIZED);
         }

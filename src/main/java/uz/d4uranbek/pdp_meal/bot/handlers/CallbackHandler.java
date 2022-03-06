@@ -12,8 +12,8 @@ import uz.d4uranbek.pdp_meal.bot.buttons.InlineBoards;
 import uz.d4uranbek.pdp_meal.bot.state.State;
 import uz.d4uranbek.pdp_meal.bot.state.UserState;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
-import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
 import uz.d4uranbek.pdp_meal.dto.department.DepartmentDto;
+import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
 import uz.d4uranbek.pdp_meal.service.department.DepartmentServiceImpl;
 
 import java.util.List;
@@ -28,16 +28,16 @@ public class CallbackHandler implements BaseHandler {
 
     private final PDPFoodBot bot;
     private final State state;
-    private final AuthCreateDto authCreateDto;
     private final DepartmentServiceImpl departmentService;
     private final InlineBoards inlineBoards;
+    private final AuthServiceImpl authService;
 
-    public CallbackHandler(PDPFoodBot bot, State state, AuthCreateDto authCreateDto, DepartmentServiceImpl departmentService, InlineBoards inlineBoards) {
+    public CallbackHandler(PDPFoodBot bot, State state, DepartmentServiceImpl departmentService, InlineBoards inlineBoards, AuthServiceImpl authService) {
         this.bot = bot;
         this.state = state;
-        this.authCreateDto = authCreateDto;
         this.departmentService = departmentService;
         this.inlineBoards = inlineBoards;
+        this.authService = authService;
     }
 
     @Override
@@ -47,13 +47,9 @@ public class CallbackHandler implements BaseHandler {
         long chatId = message.getChatId();
         String data = callbackQuery.getData();
         switch (data) {
-            case "ru", "uz", "en" -> {
-                SendMessage sendMessage = messageObj(chatId, "Please send your fullName");
-                sendMessage.setReplyMarkup(new ForceReplyKeyboard());
-                bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
-                bot.executeMessage(sendMessage);
-                changeState(chatId, UserState.LANGUAGE_CHOSEN);
-            }
+            case "ru" -> sendMessageDepartment(chatId,message,"ru");
+            case "uz" -> sendMessageDepartment(chatId,message,"uz");
+            case "en" -> sendMessageDepartment(chatId,message,"en");
         }
         List<DepartmentDto> departmentDtos = departmentService.getAll(new GenericCriteria());
         for (DepartmentDto departmentDto : departmentDtos) {
@@ -62,10 +58,30 @@ public class CallbackHandler implements BaseHandler {
                 sendMessageToHead(departmentDto.getHeaderChatId(),message);
             }
         }
+        if(data.startsWith("yes")){
+            String chatId1 = data.substring(3);
+            SendMessage sendMessage = messageObj(Long.parseLong(chatId1), "Please send your fullName");
+            sendMessage.setReplyMarkup(new ForceReplyKeyboard());
+            bot.executeMessage(sendMessage);
+            changeState(chatId, UserState.DEPARTMENT_ACCEPTED);
+        }else if(data.startsWith("no ")){
+            String chatId1=data.substring(3);
+            SendMessage sendMessage = messageObj(Long.parseLong(chatId1), "You have not been granted access");
+            bot.executeMessage(sendMessage);
+        }
     }
 
-    private void sendMessageToHead(long chatId, Message message) {
-        SendMessage sendMessage = messageObj(chatId,"Do you confirm this user "+ authCreateDto.getFullName());
+    private void sendMessageDepartment(long chatId, Message message, String lang){
+        SendMessage sendMessage = messageObj(chatId, "Choose Department please ");
+        sendMessage.setReplyMarkup(inlineBoards.departmentButtons());
+        bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
+        bot.executeMessage(sendMessage);
+        //authService.setLanguage(chatId,lang);
+        changeState(chatId, UserState.DEPARTMENT);
+    }
+
+    private void sendMessageToHead(long chatId, Message message) {;
+        SendMessage sendMessage = messageObj(chatId,"Do you confirm this user "+message.getFrom().getUserName()) ;
         sendMessage.setReplyMarkup(inlineBoards.forHeadButtons(message.getChatId()));
         bot.executeMessage(sendMessage);
     }

@@ -26,25 +26,21 @@ import java.util.Objects;
  * @project : mealDeliver
  */
 @Component
-
 public class AuthValidator extends AbstractValidator<AuthCreateDto, AuthUpdateDto, Long> {
 
     private final RoleRepository roleRepository;
     private final LanguageRepository languageRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
-    private final ValidationException validationException;
 
 
 
     public AuthValidator(RoleRepository roleRepository, LanguageRepository languageRepository,
-                         PositionRepository positionRepository, DepartmentRepository departmentRepository,
-                         ValidationException validationException) {
+                         PositionRepository positionRepository, DepartmentRepository departmentRepository) {
         this.roleRepository = roleRepository;
         this.languageRepository = languageRepository;
         this.positionRepository = positionRepository;
         this.departmentRepository = departmentRepository;
-        this.validationException = validationException;
     }
 
     @Override

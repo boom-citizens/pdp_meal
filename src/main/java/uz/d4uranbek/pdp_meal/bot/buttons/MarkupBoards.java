@@ -31,15 +31,15 @@ public class MarkupBoards {
 
     public static ReplyKeyboard mainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton("Ovqat zakaz"));
-        row1.add(new KeyboardButton("Zakaz atmen"));
+        row1.add(new KeyboardButton("Order meal"));
+        row1.add(new KeyboardButton("Cancel order"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton("Zakaz update"));
-        row2.add(new KeyboardButton("Add name"));
+        row2.add(new KeyboardButton("Update order"));
+        row2.add(new KeyboardButton("Write comment"));
 
         KeyboardRow row3 = new KeyboardRow();
-        row3.add(new KeyboardButton("settings"));
+        row3.add(new KeyboardButton("Settings"));
 
         board.setKeyboard(List.of(row1, row2, row3));
         board.setResizeKeyboard(true);
@@ -50,24 +50,10 @@ public class MarkupBoards {
     public static ReplyKeyboard adminMainMenu() {
         KeyboardRow row1 = new KeyboardRow();
         row1.add(new KeyboardButton("Users"));
-        row1.add(new KeyboardButton("My zakazs"));
+        row1.add(new KeyboardButton("My orders"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton("settings"));
-
-        board.setKeyboard(List.of(row1, row2));
-        board.setResizeKeyboard(true);
-        board.setSelective(true);
-        return board;
-    }
-
-    public static ReplyKeyboard headDepartmentMainMenu() {
-        KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton("Accept users"));
-        row1.add(new KeyboardButton("My zakazs"));
-
-        KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton("settings"));
+        row2.add(new KeyboardButton("Settings"));
 
         board.setKeyboard(List.of(row1, row2));
         board.setResizeKeyboard(true);
@@ -77,11 +63,11 @@ public class MarkupBoards {
 
     public static ReplyKeyboard deliverMainMenu() {
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton("Today zakaz"));
-        row1.add(new KeyboardButton("Add meal"));
+        row1.add(new KeyboardButton("Today orders"));
+        row1.add(new KeyboardButton("Add meals"));
 
         KeyboardRow row2 = new KeyboardRow();
-        row2.add(new KeyboardButton("Meal update"));
+        row2.add(new KeyboardButton("Update meals"));
         row2.add(new KeyboardButton("settings"));
 
         board.setKeyboard(List.of(row1, row2));

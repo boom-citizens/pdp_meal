@@ -1,6 +1,9 @@
 package uz.d4uranbek.pdp_meal.repository.auth;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import uz.d4uranbek.pdp_meal.entity.auth.User;
@@ -20,4 +23,10 @@ public interface AuthRepository extends JpaRepository<User, Long> , AbstractRepo
 
 
     Optional<User> findByUserName(String userName);
+
+    User findByChatId(Long chatId);
+
+    @Modifying
+    @Query("update User u set u.language = :lang where u.chatId = :chatId")
+    void setLanguage(@Param("chatId")long chatId,@Param("lang") String lang);
 }
