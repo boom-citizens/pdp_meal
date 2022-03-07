@@ -1,3 +1,4 @@
+/*
 package uz.d4uranbek.pdp_meal.configs;
 
 
@@ -41,3 +42,4 @@ public class SwaggerConfigurer {
                 .build();
     }
 }
+*/
