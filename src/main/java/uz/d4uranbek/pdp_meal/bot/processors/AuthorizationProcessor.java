@@ -31,6 +31,7 @@ import java.util.Objects;
 @Component
 public class AuthorizationProcessor {
 
+    public static AuthCreateDto authCreateDto=new AuthCreateDto();
     private final PDPFoodBot bot;
     private final State state;
     private final AuthServiceImpl authService;
@@ -49,7 +50,6 @@ public class AuthorizationProcessor {
         Message message = update.getMessage();
         long chatID = message.getChatId();
         User user = message.getFrom();
-        AuthCreateDto authCreateDto=new AuthCreateDto();
         if (Objects.isNull(state)) {
             SendPhoto sendPhoto = new SendPhoto();
             sendPhoto.setChatId(message.getChatId().toString());
@@ -63,16 +63,9 @@ public class AuthorizationProcessor {
             changeState(chatID, UserState.LANGUAGE);
         } else if (UserState.LANGUAGE.equals(state)) {
             bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
-        }else if (UserState.DEPARTMENT.equals(state)) {
-            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
-        } else if (UserState.DEPARTMENT_CHOSEN.equals(state)) {
-            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
-        } else if (UserState.DEPARTMENT_ACCEPTED.equals(state)) {
-            authCreateDto.setFullName(message.getText());
-            SendMessage sendMessage = messageObj(chatID, "Your password please");
-            sendMessage.setReplyMarkup(new ForceReplyKeyboard());
-            bot.executeMessage(sendMessage);
-            changeState(chatID, UserState.PASSWORD);
+        } else if(UserState.LANGUAGE_CHOSEN.equals(state)){
+          authCreateDto.setFullName(message.getText());
+
         } else if (UserState.PASSWORD.equals(state)) {
             authCreateDto.setPassword(message.getText());
             SendMessage sendMessage = messageObj(chatID, Emojis.PHONE + "Share your phone number please");
@@ -103,9 +96,19 @@ public class AuthorizationProcessor {
             authCreateDto.setChatId(chatID);
             authService.create(authCreateDto);
             changeState(chatID, UserState.AUTHORIZED);
+        } else if (UserState.DEPARTMENT.equals(state)) {
+            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
+        } else if (UserState.DEPARTMENT_CHOSEN.equals(state)) {
+            bot.executeMessage(new DeleteMessage("" + chatID, message.getMessageId()));
+        } else if (UserState.DEPARTMENT_ACCEPTED.equals(state)) {
+            authCreateDto.setFullName(message.getText());
+            SendMessage sendMessage = messageObj(chatID, "Your password please");
+            sendMessage.setReplyMarkup(new ForceReplyKeyboard());
+            bot.executeMessage(sendMessage);
+            changeState(chatID, UserState.PASSWORD);
+
         }
     }
-
     private void changeState(long chatID, UserState newState) {
         state.setState(chatID, newState);
     }

@@ -40,10 +40,9 @@ public class MainProcessor {
 
         if(UserState.ORDER_MEAL.equals(state)){
             List<MealDto> mealDtos = mealService.getAllByDate(LocalDate.now().toString());
-            SendMessage sendMessage=messageObj(chatId,getDataMeals(mealDtos));
+            SendMessage sendMessage =messageObj(chatId,getDataMeals(mealDtos));
             bot.executeMessage(sendMessage);
         }
-
     }
 
     private String getDataMeals(List<MealDto> mealDtos) {
@@ -54,7 +53,6 @@ public class MainProcessor {
         }
         return stringBuilder.toString();
     }
-
 
     private void changeState(long chatID, UserState newState) {
         state.setState(chatID, newState);

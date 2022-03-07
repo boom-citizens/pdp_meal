@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
 import uz.d4uranbek.pdp_meal.bot.PDPFoodBot;
 import uz.d4uranbek.pdp_meal.bot.buttons.InlineBoards;
@@ -17,6 +18,8 @@ import uz.d4uranbek.pdp_meal.service.auth.AuthServiceImpl;
 import uz.d4uranbek.pdp_meal.service.department.DepartmentServiceImpl;
 
 import java.util.List;
+
+import static uz.d4uranbek.pdp_meal.bot.processors.AuthorizationProcessor.authCreateDto;
 
 /**
  * Author : Qozoqboyev Ixtiyor
@@ -47,9 +50,9 @@ public class CallbackHandler implements BaseHandler {
         long chatId = message.getChatId();
         String data = callbackQuery.getData();
         switch (data) {
-            case "ru" -> sendMessageDepartment(chatId,message,"ru");
-            case "uz" -> sendMessageDepartment(chatId,message,"uz");
-            case "en" -> sendMessageDepartment(chatId,message,"en");
+            case "ru" -> sendMessageFullname(chatId,"ru");
+            case "uz" -> sendMessageFullname(chatId,"uz");
+            case "en" -> sendMessageFullname(chatId,"en");
         }
         List<DepartmentDto> departmentDtos = departmentService.getAll(new GenericCriteria());
         for (DepartmentDto departmentDto : departmentDtos) {
@@ -71,23 +74,26 @@ public class CallbackHandler implements BaseHandler {
         }
     }
 
-    private void sendMessageDepartment(long chatId, Message message, String lang){
-        SendMessage sendMessage = messageObj(chatId, "Choose Department please ");
+    private void sendMessageFullname(long chatId, String lang){
+        /*SendMessage sendMessage = messageObj(chatId, "Choose Department please ");
         sendMessage.setReplyMarkup(inlineBoards.departmentButtons());
         bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
+        bot.executeMessage(sendMessage);*/
+        SendMessage sendMessage = messageObj(chatId, "Please send your fullName");
+        sendMessage.setReplyMarkup(new ForceReplyKeyboard());
         bot.executeMessage(sendMessage);
-        //authService.setLanguage(chatId,lang);
-        changeState(chatId, UserState.DEPARTMENT);
+        authCreateDto.setLanguage(lang);
+        changeState(chatId, UserState.LANGUAGE_CHOSEN);
     }
 
     private void sendMessageToHead(long chatId, Message message) {;
-        SendMessage sendMessage = messageObj(chatId,"Do you confirm this user "+message.getFrom().getUserName()) ;
+        SendMessage sendMessage = messageObj(chatId,"Do you confirm this user "+message.getChat().getUserName()) ;
         sendMessage.setReplyMarkup(inlineBoards.forHeadButtons(message.getChatId()));
         bot.executeMessage(sendMessage);
     }
 
     private void sendMessageToUser(long chatId, Message message) {
-        SendMessage sendMessage = messageObj(chatId, "Your information is being verified");
+        SendMessage sendMessage = messageObj(chatId, "Your information is being verified ...");
         bot.executeMessage(new DeleteMessage("" + chatId, message.getMessageId()));
         bot.executeMessage(sendMessage);
         changeState(chatId, UserState.DEPARTMENT_CHOSEN);

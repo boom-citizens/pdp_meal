@@ -1,9 +1,6 @@
 package uz.d4uranbek.pdp_meal.dto.department;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
 
 /**
@@ -15,10 +12,13 @@ import uz.d4uranbek.pdp_meal.dto.GenericDto;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class DepartmentUpdateDto extends GenericDto {
     private String name;
     private Long headerChatId;
+
+    public DepartmentUpdateDto(Long id, String name, Long headerChatId) {
+        super(id);
+        this.name = name;
+        this.headerChatId = headerChatId;
+    }
 }
