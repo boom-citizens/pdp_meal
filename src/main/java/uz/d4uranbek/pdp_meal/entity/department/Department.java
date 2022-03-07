@@ -3,9 +3,9 @@ package uz.d4uranbek.pdp_meal.entity.department;
 import lombok.Getter;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.entity.Auditable;
-import uz.d4uranbek.pdp_meal.entity.auth.User;
 
 import javax.persistence.*;
+
 
 /**
  * Created by Elyor Ergashov

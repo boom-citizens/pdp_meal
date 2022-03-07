@@ -7,7 +7,6 @@ import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
 import uz.d4uranbek.pdp_meal.dto.department.DepartmentCreateDto;
 import uz.d4uranbek.pdp_meal.dto.department.DepartmentDto;
 import uz.d4uranbek.pdp_meal.dto.department.DepartmentUpdateDto;
-import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.service.department.DepartmentService;
 
 import java.util.List;

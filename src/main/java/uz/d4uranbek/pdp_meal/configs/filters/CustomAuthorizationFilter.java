@@ -31,37 +31,39 @@ import java.util.*;
 @Slf4j
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal( HttpServletRequest request,  HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         if (request.getServletPath().equals("/api/login") || request.getServletPath().equals("/api/token/refresh")) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer")) {
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
-                    String token = authorizationHeader.substring("Bearer".length());
+                    String token = authorizationHeader.substring("Bearer ".length());
                     DecodedJWT decodedJWT = JwtUtils.getVerify().verify(token);
                     String username = decodedJWT.getSubject();
                     String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
 
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                    Arrays.stream(roles).filter(s -> authorities.add(new SimpleGrantedAuthority(s)));
+                    Arrays.stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request, response);
-                } catch (Exception e) {
-                    log.info("Error logging in: {}", e.getMessage());
-                    response.setHeader("error", e.getMessage());
+                } catch (Exception exception) {
+                    log.error("Error logging in: {}", exception.getMessage());
+                    response.setHeader("error", exception.getMessage());
                     response.setStatus(HttpStatus.FORBIDDEN.value());
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put("error_message", e.getMessage());
+                    Map<String, String> error = new HashMap<>();
+                    error.put("error_message", exception.getMessage());
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                    new ObjectMapper().writeValue(response.getOutputStream(), errors);
-                    throw new InvalidTokenException(e.getMessage());
+                    new ObjectMapper().writeValue(response.getOutputStream(),error);
+                    throw new InvalidTokenException(exception.getMessage());
                 }
-
+            } else {
+                filterChain.doFilter(request, response);
             }
         }
-
     }
 }

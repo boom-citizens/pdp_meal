@@ -13,7 +13,6 @@ import uz.d4uranbek.pdp_meal.enums.Status;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author D4uranbek ср. 7:34. 02.03.2022

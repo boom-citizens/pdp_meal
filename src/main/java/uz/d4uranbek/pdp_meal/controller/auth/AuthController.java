@@ -39,10 +39,10 @@ public class AuthController extends AbstractController<AuthServiceImpl> {
         super(service);
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+  /*  @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody AuthRequestDto dto) {
         return service.login(dto);
-    }
+    }*/
 
     @PostMapping("create")
     public Long create(@RequestBody AuthCreateDto dto){

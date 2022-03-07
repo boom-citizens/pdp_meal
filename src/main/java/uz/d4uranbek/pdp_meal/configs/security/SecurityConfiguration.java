@@ -12,6 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import uz.d4uranbek.pdp_meal.configs.filters.CustomAuthenticationFilter;
+import uz.d4uranbek.pdp_meal.configs.filters.CustomAuthorizationFilter;
 
 
 /**
@@ -32,8 +36,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final CustomAuthentication authenticationManager;
+//    private final CustomAuthentication authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
     private final String[] WHITE_LIST = {
             "/auth/login", "/api/**", "/swagger-resources/configuration/ui/**",
             "/swagger-resources/**", "/webjars/**", "/swagger-resources/configuration/security",
@@ -43,20 +48,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return authenticationManager;
+        return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.cors().disable()
-                .authorizeRequests()
+//        http.csrf().disable();
+//        http.cors().disable();
+        http     .authorizeRequests()
                 .antMatchers(HttpMethod.POST, WHITE_LIST)
                 .permitAll()
                 .anyRequest()
@@ -64,7 +69,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 

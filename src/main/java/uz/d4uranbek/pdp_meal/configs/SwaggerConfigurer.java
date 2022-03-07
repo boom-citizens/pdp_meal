@@ -18,10 +18,11 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfigurer {
+
     @Bean
     public Docket docket() {
         Docket docket = new Docket(DocumentationType.SWAGGER_2);
-        docket.protocols(new HashSet<String>(List.of("http","https")));
+        docket.protocols(new HashSet<>(List.of("http","https")));
         docket.apiInfo(apiInfo()).select()
                 .apis(RequestHandlerSelectors.basePackage("uz.d4uranbek.pdp_meal"))
                 .paths(PathSelectors.any())

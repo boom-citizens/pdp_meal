@@ -1,13 +1,12 @@
 package uz.d4uranbek.pdp_meal.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import uz.d4uranbek.pdp_meal.configs.security.CustomAuthentication;
+/*import uz.d4uranbek.pdp_meal.configs.security.CustomAuthentication;*/
 import uz.d4uranbek.pdp_meal.configs.security.UserDetails;
 import uz.d4uranbek.pdp_meal.criteria.GenericCriteria;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
@@ -44,8 +43,7 @@ import java.util.List;
 public class AuthServiceImpl extends AbstractService<AuthRepository,
         AuthMapper, AuthValidator> implements AuthService {
 
-    private final CustomAuthentication authenticationManager;
-    private final UserDetailsService userService;
+
     private final AuthRepository repository;
     private final AuthMapper mapper;
     private final AuthValidator validator;
@@ -57,10 +55,10 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
     private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public AuthServiceImpl(CustomAuthentication authenticationManager, UserDetailsService userService, AuthRepository repository, AuthMapper mapper, AuthValidator validator, PasswordEncoder passwordEncoder, RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository) {
+    public AuthServiceImpl( AuthRepository repository, AuthMapper mapper, AuthValidator validator, PasswordEncoder passwordEncoder, RoleRepository roleRepository, LanguageRepository languageRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository) {
         super(repository, mapper, validator);
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
+
+
         this.repository = repository;
         this.mapper = mapper;
         this.validator = validator;
@@ -134,16 +132,16 @@ public class AuthServiceImpl extends AbstractService<AuthRepository,
     }
 
 
-    public ResponseEntity<String> login(AuthRequestDto dto) {
-        try {
+/*    public ResponseEntity<String> login(AuthRequestDto dto) {
+       *//* try {
             authenticationManager.authenticate(dto);
         } catch (Exception e) {
             throw new AccessDeniedException("INVALID_CREDENTIALS");
-        }
+        }*//*
 
         UserDetails user = (UserDetails) userService.loadUserByUsername(dto.getUserName());
         return ResponseEntity.ok(user.getUsername());
-    }
+    }*/
 
     private Role getAuthRole(String role){
        return roleRepository.findAll().stream().

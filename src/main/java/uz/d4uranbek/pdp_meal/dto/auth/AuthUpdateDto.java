@@ -3,7 +3,6 @@ package uz.d4uranbek.pdp_meal.dto.auth;
 import lombok.Getter;
 import lombok.Setter;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
-import uz.d4uranbek.pdp_meal.entity.language.Language;
 
 /**
  * Created by Elyor Ergashov

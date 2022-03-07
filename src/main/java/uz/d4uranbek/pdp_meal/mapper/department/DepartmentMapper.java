@@ -8,6 +8,8 @@ import uz.d4uranbek.pdp_meal.dto.department.DepartmentUpdateDto;
 import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * Created by Elyor Ergashov
  *
@@ -19,6 +21,19 @@ import uz.d4uranbek.pdp_meal.mapper.BaseMapper;
 @Component
 @Mapper(componentModel = "spring")
 
-public interface DepartmentMapper extends BaseMapper<Department, DepartmentDto, DepartmentCreateDto, DepartmentUpdateDto> {
+public interface DepartmentMapper extends BaseMapper<Department,
+        DepartmentDto, DepartmentCreateDto, DepartmentUpdateDto> {
 
+
+    @Override
+    DepartmentDto toDto(Department department);
+
+    @Override
+    List<DepartmentDto> toDto(List<Department> e);
+
+    @Override
+    Department fromCreateDto(DepartmentCreateDto dto);
+
+    @Override
+    Department fromUpdateDto(DepartmentUpdateDto dto);
 }

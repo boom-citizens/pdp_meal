@@ -1,6 +1,6 @@
 package uz.d4uranbek.pdp_meal.validator.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthCreateDto;
 import uz.d4uranbek.pdp_meal.dto.auth.AuthUpdateDto;

@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.pdp_meal.dto.Dto;
-import uz.d4uranbek.pdp_meal.entity.language.Language;
-import uz.d4uranbek.pdp_meal.entity.position.Positions;
-import uz.d4uranbek.pdp_meal.entity.role.Role;
 
 /**
  * Created by Elyor Ergashov

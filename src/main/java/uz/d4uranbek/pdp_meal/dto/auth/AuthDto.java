@@ -1,9 +1,6 @@
 package uz.d4uranbek.pdp_meal.dto.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import uz.d4uranbek.pdp_meal.dto.GenericDto;
 import uz.d4uranbek.pdp_meal.entity.department.Department;
 import uz.d4uranbek.pdp_meal.entity.language.Language;
@@ -20,8 +17,7 @@ import uz.d4uranbek.pdp_meal.enums.Status;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 
 public class AuthDto extends GenericDto {
     private String userName;
@@ -35,6 +31,7 @@ public class AuthDto extends GenericDto {
     private Status status;
     private Department department;
 
+    @Builder(builderMethodName = "childrenBuilder")
     public AuthDto(Long id, String userName, String phone,
                    String password, String fullName,
                    Language language, Role role, Long chatId,
